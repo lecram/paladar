@@ -1,24 +1,22 @@
 import time
 import datetime
+import random
 
-INITINTERVAL = datetime.timedelta(minutes=5)
+INTERVAL = datetime.timedelta(minutes=3)
 HISTORYLEN = 25
-PATIENCE = 1.5
 
 class Channel:
-    updates = 0
-    remaining = datetime.timedelta(seconds=5)
     live = []
 
-    # fetcher(url) -> entries
-    # entry = {datetime, url, title, summary}
     def __init__(self, url, fetcher):
-        self.url = url
-        self.fetcher = fetcher
-        self.interval = INITINTERVAL
+        self.fetcher = fetcher(url)
+        secsint = INTERVAL.total_seconds()
+        secs = random.random() * secsint
+        self.remaining = datetime.timedelta(seconds=secs)
+        self.info = self.fetcher.fetch_info()
 
     def fetch(self):
-        return self.fetcher(self.url)
+        return self.fetcher.fetch_entries()
 
 
 # FeedBot's main goal is to continually retrieve new feed entries from a
@@ -26,7 +24,7 @@ class Channel:
 # Secondary goals include:
 #  * retrieve new entries as soon as possible;
 #  * fetch feed servers as infrequently as possible;
-#  * distribute fetch schedules as separeted as possible.
+#  * distribute fetch schedules as separated as possible.
 class FeedBot:
     running = False
     channels = []
@@ -48,28 +46,23 @@ class FeedBot:
                         lasturl = None
                     entries = channel.fetch()
                     entries.sort(key=lambda e: e['datetime'], reverse=True)
+                    index = 0
                     for index, entry in enumerate(entries):
                         if entry['url'] == lasturl:
                             break
-                    if index == 0:
-                        sec = channel.interval.total_seconds()
-                        sec *= PATIENCE
-                        channel.interval = datetime.timedelta(seconds=sec)
-                    else:
+                    if index:
                         entries = entries[:index]
-                        print("{0} new entries.".format(index))
+                        fmt = "{0} new entries in {1}."
+                        print(fmt.format(index, channel.info['title']))
                         for i, entry in enumerate(entries):
-                            print(i, entry['url'])
+                            print(i, entry['datetime'])
                         # birth(entries)
                         # death(self.live[-index:]
                         channel.live = entries + channel.live[:-index]
-                        if channel.updates:
-                            sec = channel.interval.total_seconds()
-                            sec = (channel.updates * sec + index) / (channel.updates + 1)
-                            channel.interval = datetime.timedelta(seconds=sec)
-                    channel.remaining = channel.interval
-                    channel.updates += 1
-                    print(channel.interval)
+                    else:
+                        fmt = "No new entries in {0}."
+                        print(fmt.format(channel.info['title']))
+                    channel.remaining = INTERVAL
                 else:
                     channel.remaining -= towait
 
@@ -79,5 +72,8 @@ class FeedBot:
 if __name__ == "__main__":
     import fetchers
     bot = FeedBot()
-    bot.addchannel("http://reddit.com/.rss", fetchers.regular)
+    bot.addchannel(None, fetchers.Feedzilla)
+    bot.addchannel("http://reddit.com/.rss", fetchers.Regular)
+    for channel in bot.channels:
+        print(channel.info['title'])
     bot.run()
