@@ -29,6 +29,9 @@ class Entry(PaladarModel):
     title = CharField()
     summary = TextField()
 
+    class Meta:
+        order_by = ('-pubtime',)
+
 class Subscription(PaladarModel):
     user = ForeignKeyField(User, related_name='subscriptions')
     channel = ForeignKeyField(Channel, related_name='subscriptions')
