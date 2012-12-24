@@ -52,10 +52,13 @@ class Score(PaladarModel):
     dennum = IntegerField()
     denden = IntegerField()
 
-if __name__ == "__main__":
+def create_tables():
     tables = [
       User, ChannelType, Channel, Entry,
       Subscription, Rating, Word, Score
     ]
     for table in tables:
         table.create_table()
+
+if __name__ == "__main__":
+    create_tables()
