@@ -1,4 +1,5 @@
-from datetime import datetime
+import datetime
+
 from cork import Cork
 
 def reset():
@@ -9,7 +10,7 @@ def reset():
     cork._store.roles['user'] = 50
     cork._store._savejson('roles', cork._store.roles)
 
-    tstamp = str(datetime.utcnow())
+    tstamp = str(datetime.datetime.utcnow())
     username = password = 'admin'
     cork._store.users[username] = {
         'role': 'admin',
