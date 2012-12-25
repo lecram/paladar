@@ -2,4 +2,5 @@
 *.db
 corked/*
 *bootstrap*
+*jquery*
 img/*
