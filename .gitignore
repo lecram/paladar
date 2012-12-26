@@ -7,3 +7,4 @@ static/img/*
 .deps
 i18n/*
 *.mo
+*.tpl
