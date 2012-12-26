@@ -6,5 +6,6 @@ corked/*
 static/img/*
 .deps
 i18n/*
+*.pot
 *.mo
 *.tpl
