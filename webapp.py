@@ -7,6 +7,7 @@ DEFAULT_LANG = 'en'
 LANGS = [DEFAULT_LANG]
 LANGS.extend(os.listdir("locale"))
 LANGS.remove("_pot")
+LANGS.remove("README")
 
 def lang_from_header(accept_language, available=LANGS, default='en'):
     accept_language = accept_language.replace(" ", "")

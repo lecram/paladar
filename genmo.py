@@ -8,6 +8,7 @@ def build():
 def genmo():
     langs = os.listdir("locale")
     langs.remove("_pot")
+    langs.remove("README")
     for lang in langs:
         msgdir = os.path.join("locale", lang, "LC_MESSAGES")
         fs = os.listdir(msgdir)
