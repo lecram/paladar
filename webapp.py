@@ -9,7 +9,7 @@ LANGS.extend(os.listdir("locale"))
 LANGS.remove("_pot")
 LANGS.remove("README")
 
-def lang_from_header(accept_language, available=LANGS, default='en'):
+def lang_from_header(accept_language, available=LANGS, default=DEFAULT_LANG):
     accept_language = accept_language.replace(" ", "")
     pairs = []
     for acc in accept_language.split(','):
