@@ -26,8 +26,7 @@ def lang_from_header(accept_language, available=LANGS, default=DEFAULT_LANG):
                 return lang
     return default
 
-def get_underline(domain, headers):
-    lang = lang_from_header(headers.get("Accept-Language", ""))
+def get_underline(domain, lang):
     try:
         t = gettext.translation(domain, "locale", [lang])
         _ = t.lgettext
@@ -42,7 +41,8 @@ def send_static(filename):
 @route('/')
 @view('login')
 def login():
-    _ = get_underline("login", request.headers)
-    return {'_': _}
+    lang = lang_from_header(request.headers.get("Accept-Language", ""))
+    _ = get_underline("login", lang)
+    return dict(_=_, lang=lang)
 
 run(host='localhost', server='tornado', debug=True, reloader=True)
