@@ -1,0 +1,4 @@
+Every directory in this path, except _pot, should have a proper code as its name.
+The code is either ll or ll-CC, where ll is a two-letter lowercase ISO 639-1 language abbreviation and CC is a two-letter uppercase ISO 3166-1 alpha-2 country code.
+http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
