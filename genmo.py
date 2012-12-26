@@ -11,7 +11,7 @@ def genmo():
     for lang in langs:
         msgdir = os.path.join("locale", lang, "LC_MESSAGES")
         fs = os.listdir(msgdir)
-        pos = filter(lambda f: os.path.splitext(f)[1] == "pos", fs)
+        pos = filter(lambda f: os.path.splitext(f)[1] == ".po", fs)
         for po in pos:
             popath = os.path.join(msgdir, po)
             run('python', 'i18n/msgfmt.py', popath)
