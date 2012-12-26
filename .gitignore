@@ -4,3 +4,5 @@ corked/*
 *bootstrap*
 *jquery*
 static/img/*
+.deps
+i18n/*
