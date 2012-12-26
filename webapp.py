@@ -26,6 +26,15 @@ def lang_from_header(accept_language, available=LANGS, default='en'):
                 return lang
     return default
 
+def get_underline(domain, headers):
+    lang = lang_from_header(headers.get("Accept-Language", ""))
+    try:
+        t = gettext.translation(domain, "locale", [lang])
+        _ = t.lgettext
+    except FileNotFoundError:
+        _ = lambda s: s
+    return _
+
 @route('/static/<filename:path>')
 def send_static(filename):
     return static_file(filename, root='static')
@@ -33,12 +42,7 @@ def send_static(filename):
 @route('/')
 @view('login')
 def login():
-    lang = lang_from_header(request.headers.get("Accept-Language", ""))
-    try:
-        t = gettext.translation("login", "locale", [lang])
-        _ = t.lgettext
-    except FileNotFoundError:
-        _ = lambda s: s
+    _ = get_underline("login", request.headers)
     return {'_': _}
 
 run(host='localhost', server='tornado', debug=True, reloader=True)
