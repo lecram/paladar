@@ -17,7 +17,7 @@ msgstr ""
 
 #: views/login.tpl:54
 msgid "Please login"
-msgstr "Entre por favor."
+msgstr "Entre por favor"
 
 #: views/login.tpl:57
 msgid "Login"
