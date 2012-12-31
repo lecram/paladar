@@ -50,6 +50,14 @@
   <body>
     <div class="container">
 
+      <div class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">[[Language]]<b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="/?lang=en">English</a></li>
+          <li><a href="/?lang=pt-BR">Portugu&ecirc;s</a></li>
+        </ul>
+      </div>
+
       <form class="form-signin">
         <h2 class="form-signin-heading">[[Please login]]</h2>
         <input type="text" class="input-block-level" placeholder="[[Username]]">
@@ -61,5 +69,10 @@
 
     <script src="static/js/jquery.min.js"></script>
     <script src="static/js/bootstrap.min.js"></script>
+    <script type="text/javascript">  
+        $(document).ready(function () {  
+            $('.dropdown-toggle').dropdown();  
+        });  
+   </script>  
   </body>
 </html>

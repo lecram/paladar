@@ -40,7 +40,9 @@ def send_static(filename):
 @route('/')
 @view('login')
 def login():
-    lang = lang_from_header(request.headers.get("Accept-Language", ""))
+    lang = request.query.lang
+    if lang not in LANGS:
+        lang = lang_from_header(request.headers.get("Accept-Language", ""))
     _ = get_underline("login", lang)
     return dict(_=_, lang=lang)
 
