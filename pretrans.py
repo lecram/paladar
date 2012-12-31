@@ -25,22 +25,29 @@ def dict2po(d):
     return po
 
 def updatepo(po, keys):
+    print("    {0}% translated.".format(po.percent_translated()))
     d = po2dict(po)
     oldkeys = [k for k in d if k not in keys]
     newkeys = [k for k in keys if k not in d]
+    changed = False
     if oldkeys:
         print("    Removing deprecated messages...")
         for k in oldkeys:
             print("      {0}".format(repr(k)))
         # Removing deprecated messages.
         d = {k: d[k] for k in d if k in keys}
+        changed = True
     if newkeys:
         print("    Adding new messages...")
         for k in newkeys:
             print("      {0}".format(repr(k)))
         # Adding new messages to be translated.
         d.update({k: "" for k in keys if k not in d})
-    return dict2po(d)
+        changed = True
+    po = dict2po(d)
+    if changed:
+        print("    {0}% translated.".format(po.percent_translated()))
+    return po
 
 if __name__ == "__main__":
     import os
