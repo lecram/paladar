@@ -26,10 +26,20 @@ def dict2po(d):
 
 def updatepo(po, keys):
     d = po2dict(po)
-    # Removing deprecated messages.
-    d = {k: d[k] for k in d if k in keys}
-    # Adding new messages to be translated.
-    d.update({k: "" for k in keys if k not in d})
+    oldkeys = [k for k in d if k not in keys]
+    newkeys = [k for k in keys if k not in d]
+    if oldkeys:
+        print("    Removing deprecated messages...")
+        for k in oldkeys:
+            print("      {0}".format(repr(k)))
+        # Removing deprecated messages.
+        d = {k: d[k] for k in d if k in keys}
+    if newkeys:
+        print("    Adding new messages...")
+        for k in newkeys:
+            print("      {0}".format(repr(k)))
+        # Adding new messages to be translated.
+        d.update({k: "" for k in keys if k not in d})
     return dict2po(d)
 
 if __name__ == "__main__":
@@ -40,6 +50,7 @@ if __name__ == "__main__":
     langs = os.listdir("locale")
     langs.remove("README")
     for ptp in ptps:
+        print("Processing {0}...".format(ptp))
         ptppath = os.path.join("views", ptp)
         tplpath = os.path.join("views", os.path.splitext(ptp)[0] + ".tpl")
         f = open(ptppath, "r")
@@ -50,6 +61,7 @@ if __name__ == "__main__":
         f.write(stpl)
         f.close()
         for lang in langs:
+            print("  lang: {0}...".format(lang))
             msgdir = os.path.join("locale", lang, "LC_MESSAGES")
             fs = os.listdir(msgdir)
             pos = filter(lambda f: os.path.splitext(f)[1] == ".po", fs)
