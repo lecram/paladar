@@ -68,5 +68,5 @@ if __name__ == "__main__":
             for po in pos:
                 popath = os.path.join(msgdir, po)
                 pof = polib.pofile(popath)
-                updatepo(pof, keys)
+                pof = updatepo(pof, keys)
                 pof.save(popath)
