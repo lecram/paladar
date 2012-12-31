@@ -29,7 +29,7 @@ def lang_from_header(accept_language, available=LANGS, default=DEFAULT_LANG):
 def get_underline(domain, lang):
     try:
         t = gettext.translation(domain, "locale", [lang])
-        _ = t.lgettext
+        _ = t.gettext
     except FileNotFoundError:
         _ = lambda s: s
     return _
