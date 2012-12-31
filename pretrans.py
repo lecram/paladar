@@ -26,10 +26,11 @@ def dict2po(d):
 
 def updatepo(po, keys):
     d = po2dict(po)
-    newkeys = filter(lambda k: k not in d, keys)
-    entries = [polib.POEntry(msgid=k) for k in newkeys]
-    po.extend(entries)
-    return po
+    # Removing deprecated messages.
+    d = {k: d[k] for k in d if k in keys}
+    # Adding new messages to be translated.
+    d.update({k: "" for k in keys if k not in d})
+    return dict2po(d)
 
 if __name__ == "__main__":
     import os
