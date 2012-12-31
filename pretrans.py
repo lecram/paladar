@@ -37,7 +37,6 @@ if __name__ == "__main__":
     fs = os.listdir("views")
     ptps = filter(lambda f: os.path.splitext(f)[1] == ".ptp", fs)
     langs = os.listdir("locale")
-    langs.remove("_pot")
     langs.remove("README")
     for ptp in ptps:
         ptppath = os.path.join("views", ptp)
