@@ -26,8 +26,8 @@ def dict2po(d):
 
 def updatepo(po, keys):
     d = po2dict(po)
-    keys = filter(lambda k: k not in d, keys)
-    entries = [polib.POEntry(msgid=k) for k in keys]
+    newkeys = filter(lambda k: k not in d, keys)
+    entries = [polib.POEntry(msgid=k) for k in newkeys]
     po.extend(entries)
     return po
 
