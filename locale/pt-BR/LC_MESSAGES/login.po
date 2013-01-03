@@ -2,17 +2,17 @@
 msgid ""
 msgstr ""
 
-msgid "Language"
-msgstr "Idioma"
-
-msgid "Password"
-msgstr "Senha"
-
 msgid "Username"
 msgstr "Usuário"
+
+msgid "Please login"
+msgstr "Entre por favor"
 
 msgid "Login"
 msgstr "Entrar"
 
-msgid "Please login"
-msgstr "Entre por favor"
+msgid "Password"
+msgstr "Senha"
+
+msgid "Language"
+msgstr "Idioma"
