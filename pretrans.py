@@ -52,14 +52,16 @@ def updatepo(po, keys):
 if __name__ == "__main__":
     import os
 
-    fs = os.listdir("views")
-    ptps = filter(lambda f: os.path.splitext(f)[1] == ".ptp", fs)
     langs = os.listdir("locale")
     langs.remove("README")
-    for ptp in ptps:
-        print("Processing {0}...".format(ptp))
-        ptppath = os.path.join("views", ptp)
-        tplpath = os.path.join("views", os.path.splitext(ptp)[0] + ".tpl")
+    fs = os.listdir("views")
+    ptps = filter(lambda f: os.path.splitext(f)[1] == ".ptp", fs)
+    views = list(map(lambda f: os.path.splitext(f)[0], ptps))
+    viewkeys = {}
+    for view in views:
+        print("Creating template for view '{0}'...".format(view))
+        ptppath = os.path.join("views", view + ".ptp")
+        tplpath = os.path.join("views", view + ".tpl")
         f = open(ptppath, "r")
         sptp = f.read()
         f.close()
@@ -67,13 +69,14 @@ if __name__ == "__main__":
         f = open(tplpath, "w")
         f.write(stpl)
         f.close()
-        for lang in langs:
-            print("  lang: {0}...".format(lang))
-            msgdir = os.path.join("locale", lang, "LC_MESSAGES")
-            fs = os.listdir(msgdir)
-            pos = filter(lambda f: os.path.splitext(f)[1] == ".po", fs)
-            for po in pos:
-                popath = os.path.join(msgdir, po)
-                pof = polib.pofile(popath)
-                pof = updatepo(pof, keys)
-                pof.save(popath)
+        print("  {0} messages found.".format(len(keys)))
+        viewkeys[view] = keys
+    for lang in langs:
+        print("lang: {0}...".format(lang))
+        msgdir = os.path.join("locale", lang, "LC_MESSAGES")
+        for view in views:
+            print("  Updating PO file for view '{0}'...".format(view))
+            popath = os.path.join(msgdir, view + ".po")
+            pof = polib.pofile(popath)
+            pof = updatepo(pof, viewkeys[view])
+            pof.save(popath)
