@@ -11,6 +11,10 @@ class PaladarModel(Model):
 class User(PaladarModel):
     handle = CharField()
     name = CharField()
+    email = CharField()
+    language = CharField()
+    timezone = CharField()
+    hashed_password = CharField()
     corpuslen = BigIntegerField()
 
 class ChannelType(PaladarModel):
