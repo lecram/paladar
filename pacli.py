@@ -52,11 +52,8 @@ def user_add(*args):
     user.handle = input("Handle: ")
     user.name = input("Name: ")
     user.email = input("email: ")
-    user.language = "en"
-    user.timezone = "UTC"
     password = getpass.getpass("Password: ")
     user.hashed_password = delegator.encode(password)
-    user.corpuslen = 0
     user.save()
 
 def user_remove(*args):
