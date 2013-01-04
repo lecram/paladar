@@ -30,6 +30,7 @@ Session Management: (currently only applicable for user identification)
   Implementation:
     Python third-party library beaker is used to manage session information.
     memcached is used to store session information.
+    NOTE: Python third-party library python3-memcached is required.
 
 Feed Bot:
   Rules:
