@@ -50,6 +50,7 @@ Internationalization:
   Rules:
     Every UI text should be UTF-8.
     No localized messages in source code.
+    All times should be internally computed in UTC.
   Implementation:
     Python standard module gettext is used to translate messages in running time.
     Python third-party library polib is used to create translation files.
@@ -69,3 +70,4 @@ Internationalization:
             Use it.
           Else:
             Use default language.
+    Timezones are defined in a similar manner, and conversions from UTC are made at rendering time using the Python third-party library pytz.
