@@ -25,7 +25,7 @@ ORM:
     The ORM should be fast, lightweight and py3k+sqlite3 compatible.
   Implementation:
     The peewee ORM is used.
-    (NOTE: peewee.Leaf.__eq__ can't exist, because it renders everything unhashable.)
+    (NOTE: peewee.Leaf.__hash__ should be defined, otherwise everything will be unhashable.)
 
 Session Management: (currently only applicable for user identification)
   Implementation:
