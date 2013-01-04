@@ -58,8 +58,9 @@ def user_add(*args):
 
 def user_remove(*args):
     model.paladar_db.connect()
-    user = model.User.get(User.handle == args[0])
-    user.delete_instance()
+    for handle in args:
+        user = model.User.get(User.handle == handle)
+        user.delete_instance()
 
 if __name__ == "__main__":
     import sys
