@@ -1,11 +1,8 @@
 *__pycache__*
 *.db
-corked/*
 *bootstrap*
 *jquery*
 static/img/*
-.deps
 i18n/*
-*.pot
 *.mo
 *.tpl
