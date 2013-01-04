@@ -2,11 +2,13 @@
 
 import getpass
 
-import model
-
 import cryptacular.core
 import cryptacular.pbkdf2
 import cryptacular.bcrypt
+
+import peewee
+
+import model
 
 pbkdf2 = cryptacular.pbkdf2.PBKDF2PasswordManager()
 bcrypt = cryptacular.bcrypt.BCRYPTPasswordManager()
@@ -60,14 +62,28 @@ def user_add(*args):
 def user_remove(*args):
     model.paladar_db.connect()
     for handle in args:
-        user = model.User.get(model.User.handle == handle)
+        print(handle)
+        try:
+            user = model.User.get(model.User.handle == handle)
+        except peewee.DoesNotExist:
+            user = None
+        if user is None:
+            print("  This user does not exist.")
+            continue            
         user.delete_instance()
+        print("  Removed succesfully.")
 
 def user_info(*args):
     model.paladar_db.connect()
     for handle in args:
-        user = model.User.get(model.User.handle == handle)
-        print(user.handle)
+        print(handle)
+        try:
+            user = model.User.get(model.User.handle == handle)
+        except peewee.DoesNotExist:
+            user = None
+        if user is None:
+            print("  This user does not exist.")
+            continue
         print("  Name: {0}".format(user.name))
         print("  email: {0}".format(user.email))
         print("  Language: {0}".format(user.language))
