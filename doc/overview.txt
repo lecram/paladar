@@ -1,0 +1,70 @@
+Web Application Archtecture
+---------------------------
+
+Web Framework:
+  Rules:
+    The web framework should be fast, lightweight and py3k compatible.
+  Implementation:
+    The bottle.py micro framework is used.
+
+Web Server:
+  Rules:
+    The web server should be fast, lightweight and py3k+bottle.py compatible.
+  Implementation:
+    The tornado web server is used.
+
+Database Engine:
+  Rules:
+    The database engine should be fast, lightweight and py3k compatible.
+    The database engine should be easy to configure.
+  Implementation:
+    The standard Python module sqlite3 is used.
+
+ORM:
+  Rules:
+    The ORM should be fast, lightweight and py3k+sqlite3 compatible.
+  Implementation:
+    The peewee ORM is used.
+
+Session Management: (currently only applicable for user identification)
+  Implementation:
+    Python third-party library beaker is used to manage session information.
+    memcached is used to store session information.
+
+Feed Bot:
+  Rules:
+    Any well-formed RSS/Atom feed should be readable.
+    New entries should be retrieved as soon as possible.
+    Feed servers should be fetched as infrequently as possible.
+    Feed schedules should be distributed as separated as possible.
+  Implementation:
+    Python third-party library feedparser is used to fetch regular (RSS/Atom) feeds.
+    Feedzilla JSON API is used to fetch Feedzilla (news) feeds.
+    The script feedbot.py fetches feed servers in an orchestrated manner:
+      The interval between two fetches of the same feed is always 3 minutes.
+      The first fetch to a feed is random scheduled sometime in the next 3 minutes after it is registered.
+      A feed is fetched only once per interval even if more than one user is subscribed to it.
+
+Internationalization:
+  Rules:
+    Every UI text should be UTF-8.
+    No localized messages in source code.
+  Implementation:
+    Python standard module gettext is used to translate messages in running time.
+    Python third-party library polib is used to create translation files.
+    Localized messages are marked as [[english text here]] in PTP (pre-templates) files.
+    The script pretrans.py read PTP files, generating TPL (templates) files and updating existing PO files.
+    Humans fill the updated PO files with translated messages.
+    The script postrans.py read PO files and generates MO files (the files actually used by gettext).
+    Choosing the proper language to render:
+      If client is logged in:
+        Use user language (stored in database).
+      Else: (currently only applicable for the login page)
+        If the HTTP header value Accept-Language contains an available language:
+          Use it (priorities should be applied correctly).
+        Else:
+          If the domain name associated with the client IP contains a country code and
+          this country code is associated (in the database) with an available language:
+            Use it.
+          Else:
+            Use default language.
