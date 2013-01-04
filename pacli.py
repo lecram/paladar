@@ -35,7 +35,8 @@ def user(*args):
     mapper = {
       "ls" : user_list,
       "add": user_add,
-      "rm" : user_remove
+      "rm" : user_remove,
+      "info" : user_info
     }
     goto(mapper, args)
 
@@ -59,8 +60,20 @@ def user_add(*args):
 def user_remove(*args):
     model.paladar_db.connect()
     for handle in args:
-        user = model.User.get(User.handle == handle)
+        user = model.User.get(model.User.handle == handle)
         user.delete_instance()
+
+def user_info(*args):
+    model.paladar_db.connect()
+    for handle in args:
+        user = model.User.get(model.User.handle == handle)
+        print(user.handle)
+        print("  Name: {0}".format(user.name))
+        print("  email: {0}".format(user.email))
+        print("  Language: {0}".format(user.language))
+        print("  Timezone: {0}".format(user.timezone))
+        print("  Hashed Password: {0}".format(user.hashed_password))
+        print("  Corpus Length: {0}".format(user.corpuslen))
 
 if __name__ == "__main__":
     import sys
