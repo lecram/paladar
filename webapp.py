@@ -61,20 +61,25 @@ def get_underline(domain, lang):
         _ = lambda s: s
     return _
 
+def logged_user(session):
+    username = session.get('user_handle', False)
+    if not username:
+        return None
+    model.paladar_db.connect()
+    try:
+        user = model.User.get(model.User.handle == username)
+    except peewee.DoesNotExist:
+        user = None
+    return user
+
 @bottle.route('/static/<filename:path>')
 def send_static(filename):
     return bottle.static_file(filename, root='static')
 
 @bottle.route('/')
 def home():
-    s = bottle.request.environ.get('beaker.session')
-    username = s.get('user_handle', False)
-    if not username:
-        bottle.redirect('/login')
-    try:
-        user = model.User.get(model.User.handle == username)
-    except peewee.DoesNotExist:
-        user = None
+    session = bottle.request.environ.get('beaker.session')
+    user = logged_user(session)
     if user is None:
         bottle.redirect('/login')
     return "Welcome {0}!".format(user.name)
@@ -102,8 +107,8 @@ def login_submit():
     ok = delegator.check(user.hashed_password, password)
     if not ok:
         bottle.redirect('/login')
-    s = bottle.request.environ.get('beaker.session')
-    s['user_handle'] = username
+    session = bottle.request.environ.get('beaker.session')
+    session['user_handle'] = username
     bottle.redirect('/')
 
 bottle.run(app=app, host='localhost', server='tornado', debug=True, reloader=True)
