@@ -1,0 +1,21 @@
+# 
+msgid ""
+msgstr ""
+
+msgid "About"
+msgstr "Sobre"
+
+msgid "Feeds"
+msgstr "Feeds"
+
+msgid "Home"
+msgstr "Início"
+
+msgid "Language"
+msgstr "Idioma"
+
+msgid "Log out"
+msgstr "Sair"
+
+msgid "Welcome"
+msgstr "Bem vindo"

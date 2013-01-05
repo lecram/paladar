@@ -64,6 +64,13 @@ def get_underline(domain, lang):
         _ = lambda s: s
     return _
 
+def get_lang_dict(domain, request):
+    lang = request.query.lang
+    if lang not in LANGS:
+        lang = lang_from_header(request.headers.get("Accept-Language", ""))
+    _ = get_underline(domain, lang)
+    return dict(_=_, lang=lang)
+
 def logged_user(session):
     username = session.get('user_handle', False)
     if not username:
@@ -80,23 +87,20 @@ def send_static(filename):
     return bottle.static_file(filename, root='static')
 
 @bottle.route('/')
+@bottle.view('home')
 def home():
     session = bottle.request.environ.get('beaker.session')
     user = logged_user(session)
     if user is None:
         bottle.redirect('/login')
-    r = "Welcome {0}!".format(user.name)
-    r += " <a href='/logout'>Log out</a>"
-    return r
+    d = get_lang_dict("home", bottle.request)
+    d.update(user=user)
+    return d
 
 @bottle.route('/login')
 @bottle.view('login')
 def login():
-    lang = bottle.request.query.lang
-    if lang not in LANGS:
-        lang = lang_from_header(bottle.request.headers.get("Accept-Language", ""))
-    _ = get_underline("login", lang)
-    return dict(_=_, lang=lang)
+    return get_lang_dict("login", bottle.request)
 
 @bottle.post('/login')
 def login_submit():
