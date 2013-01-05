@@ -3,6 +3,8 @@ import gettext
 
 import bottle
 
+from beaker.middleware import SessionMiddleware
+
 import cryptacular.core
 import cryptacular.pbkdf2
 import cryptacular.bcrypt
@@ -19,6 +21,20 @@ DEFAULT_LANG = 'en'
 LANGS = [DEFAULT_LANG]
 LANGS.extend(os.listdir("locale"))
 LANGS.remove("README")
+
+session_opts = {
+    # Requires a memcached server.
+    'session.type': 'ext:memcached',
+    'session.url': 'localhost:11211',
+    # Cookie is discarded when browser closes.
+    'session.cookie_expires': True,
+    # Session will save itself anytime it is accessed.
+    'session.auto': True,
+    # A lock dir is always required.
+    'session.lock_dir': "lock"
+}
+
+app = SessionMiddleware(bottle.app(), session_opts)
 
 def lang_from_header(accept_language, available=LANGS, default=DEFAULT_LANG):
     accept_language = accept_language.replace(" ", "")
@@ -49,6 +65,20 @@ def get_underline(domain, lang):
 def send_static(filename):
     return bottle.static_file(filename, root='static')
 
+@bottle.route('/')
+def home():
+    s = bottle.request.environ.get('beaker.session')
+    username = s.get('user_handle', False)
+    if not username:
+        bottle.redirect('/login')
+    try:
+        user = model.User.get(model.User.handle == username)
+    except peewee.DoesNotExist:
+        user = None
+    if user is None:
+        bottle.redirect('/login')
+    return "Welcome {0}!".format(user.name)
+
 @bottle.route('/login')
 @bottle.view('login')
 def login():
@@ -72,6 +102,8 @@ def login_submit():
     ok = delegator.check(user.hashed_password, password)
     if not ok:
         bottle.redirect('/login')
-    return "Welcome {0}!".format(user.name)
+    s = bottle.request.environ.get('beaker.session')
+    s['user_handle'] = username
+    bottle.redirect('/')
 
-bottle.run(host='localhost', server='tornado', debug=True, reloader=True)
+bottle.run(app=app, host='localhost', server='tornado', debug=True, reloader=True)
