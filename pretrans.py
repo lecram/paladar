@@ -19,7 +19,7 @@ def po2dict(po):
     return d
 
 def dict2po(d):
-    entries = [polib.POEntry(msgid=k, msgstr=d[k]) for k in d]
+    entries = [polib.POEntry(msgid=k, msgstr=d[k]) for k in sorted(d.keys())]
     po = polib.POFile()
     po.extend(entries)
     return po
