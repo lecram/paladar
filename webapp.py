@@ -31,7 +31,10 @@ session_opts = {
     # Session will save itself anytime it is accessed.
     'session.auto': True,
     # A lock dir is always required.
-    'session.lock_dir': "lock"
+    'session.lock_dir': "lock",
+    # Enable AES encryption.
+    'session.encrypt_key': b'6ugGzf7bv4bb7tfv6VCeHtcGpgZjzzW5',
+    'session.validate_key': b'cJ7kQCOPeANksD5J4lFU2lHa2RZaTsBH'
 }
 
 app = SessionMiddleware(bottle.app(), session_opts)
