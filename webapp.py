@@ -82,7 +82,9 @@ def home():
     user = logged_user(session)
     if user is None:
         bottle.redirect('/login')
-    return "Welcome {0}!".format(user.name)
+    r = "Welcome {0}!".format(user.name)
+    r += " <a href='/logout'>Log out</a>"
+    return r
 
 @bottle.route('/login')
 @bottle.view('login')
@@ -110,5 +112,11 @@ def login_submit():
     session = bottle.request.environ.get('beaker.session')
     session['user_handle'] = username
     bottle.redirect('/')
+
+@bottle.route('/logout')
+def logout():
+    session = bottle.request.environ.get('beaker.session')
+    session.invalidate()
+    bottle.redirect('/login')
 
 bottle.run(app=app, host='localhost', server='tornado', debug=True, reloader=True)
