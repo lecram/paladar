@@ -1,7 +1,7 @@
 import os
 import gettext
 
-from bottle import route, post, redirect, view, static_file, request, run
+import bottle
 
 import cryptacular.core
 import cryptacular.pbkdf2
@@ -45,33 +45,33 @@ def get_underline(domain, lang):
         _ = lambda s: s
     return _
 
-@route('/static/<filename:path>')
+@bottle.route('/static/<filename:path>')
 def send_static(filename):
-    return static_file(filename, root='static')
+    return bottle.static_file(filename, root='static')
 
-@route('/login')
-@view('login')
+@bottle.route('/login')
+@bottle.view('login')
 def login():
-    lang = request.query.lang
+    lang = bottle.request.query.lang
     if lang not in LANGS:
-        lang = lang_from_header(request.headers.get("Accept-Language", ""))
+        lang = lang_from_header(bottle.request.headers.get("Accept-Language", ""))
     _ = get_underline("login", lang)
     return dict(_=_, lang=lang)
 
-@post('/login')
+@bottle.post('/login')
 def login_submit():
-    username = request.forms.get('username')
-    password = request.forms.get('password')
+    username = bottle.request.forms.get('username')
+    password = bottle.request.forms.get('password')
     model.paladar_db.connect()
     try:
         user = model.User.get(model.User.handle == username)
     except peewee.DoesNotExist:
         user = None
     if user is None:
-        redirect('/login')
+        bottle.redirect('/login')
     ok = delegator.check(user.hashed_password, password)
     if not ok:
-        redirect('/login')
+        bottle.redirect('/login')
     return "Welcome {0}!".format(user.name)
 
-run(host='localhost', server='tornado', debug=True, reloader=True)
+bottle.run(host='localhost', server='tornado', debug=True, reloader=True)
