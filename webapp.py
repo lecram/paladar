@@ -2,6 +2,7 @@ import os
 import codecs
 import json
 import gettext
+import socket
 
 import bottle
 
@@ -59,6 +60,15 @@ def lang_from_header(request, available=LANGS, default=DEFAULT_LANG):
                 return lang
     return default
 
+def country_from_environ(request):
+    remote_address = request.environ.get("REMOTE_ADDR")
+    name, aliases, addresses = socket.gethostbyaddr(remote_address)
+    domain = name.split('.')[-1]
+    if len(domain) == 2:
+        return domain
+    else:
+        return None
+
 def get_underline(domain, lang):
     try:
         t = gettext.translation(domain, "locale", [lang])
@@ -69,16 +79,34 @@ def get_underline(domain, lang):
 
 def get_lang_dict(domain, request):
     session = request.environ.get('beaker.session')
+    # If a language is supplied in the URL, it's used no matter what.
     lang = request.query.lang
     if lang in LANGS:
+        # If a user is logged in, supplying a language in the URL changes
+        #  the user language on the database.
         user = logged_user(session)
         if user is not None:
             user.language = lang
             user.save()
     else:
+        # If a user is logged in and [s]he doesn't include the language
+        #  in the URL, (her|his) prefered language is used.
         lang = session.get('user_language')
         if lang not in LANGS:
+            # No language in the URL and not logged in?
+            # Maybe the browser knows what's the prefered language.
             lang = lang_from_header(request)
+        if lang not in LANGS:
+            # The last attempt at visitor language guessing is checking if
+            #  the ISP domain name has a country code and we have a language
+            #  associated with that country in languages.json.
+            country = country_from_environ(request)
+            if country is not None:
+                for key in LANGS:
+                    if country in LANGS[key]['countries']:
+                        lang = key
+                        break
+    # If everything above fails, the default language will be used.
     _ = get_underline(domain, lang)
     return dict(_=_, lang=lang)
 
