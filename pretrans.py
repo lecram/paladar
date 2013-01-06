@@ -51,9 +51,13 @@ def updatepo(po, keys):
 
 if __name__ == "__main__":
     import os
+    import codecs
+    import json
 
-    langs = os.listdir("locale")
-    langs.remove("README")
+    f = codecs.open("locale/languages.json", mode="r", encoding="utf8")
+    langs = json.load(f)
+    f.close()
+    del langs['en']
     fs = os.listdir("views")
     ptps = filter(lambda f: os.path.splitext(f)[1] == ".ptp", fs)
     views = list(map(lambda f: os.path.splitext(f)[0], ptps))

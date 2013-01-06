@@ -1,4 +1,6 @@
 import os
+import codecs
+import json
 
 import polib
 
@@ -12,8 +14,10 @@ METADATA = {
 fs = os.listdir("views")
 ptps = filter(lambda f: os.path.splitext(f)[1] == ".ptp", fs)
 views = list(map(lambda f: os.path.splitext(f)[0], ptps))
-langs = os.listdir("locale")
-langs.remove("README")
+f = codecs.open("locale/languages.json", mode="r", encoding="utf8")
+langs = json.load(f)
+f.close()
+del langs['en']
 for lang in langs:
     print("lang: {0}...".format(lang))
     msgdir = os.path.join("locale", lang, "LC_MESSAGES")
