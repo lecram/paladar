@@ -53,8 +53,9 @@
       <div class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">[[Language]]<b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li><a href="/login?lang=en">English</a></li>
-          <li><a href="/login?lang=pt-BR">Portugu&ecirc;s</a></li>
+         %for key in langs:
+          <li><a href="/login?lang={{key}}">{{langs[key]['name']}}</a></li>
+         %end
         </ul>
       </div>
 

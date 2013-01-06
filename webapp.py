@@ -133,13 +133,15 @@ def home():
     if user is None:
         bottle.redirect('/login')
     d = get_lang_dict("home", bottle.request)
-    d.update(user=user)
+    d.update(user=user, langs=LANGS)
     return d
 
 @bottle.route('/login')
 @bottle.view('login')
 def login():
-    return get_lang_dict("login", bottle.request)
+    d = get_lang_dict("login", bottle.request)
+    d.update(langs=LANGS)
+    return d
 
 @bottle.post('/login')
 def login_submit():

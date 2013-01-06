@@ -39,8 +39,9 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">[[Language]]<b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                  <li><a href="/?lang=en">English</a></li>
-                  <li><a href="/?lang=pt-BR">Portugu&ecirc;s</a></li>
+                 %for key in langs:
+                  <li><a href="/?lang={{key}}">{{langs[key]['name']}}</a></li>
+                 %end
                 </ul>
               </li>
               <li><a href="/logout">[[Log out]]</a></li>
