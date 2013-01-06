@@ -39,7 +39,8 @@ session_opts = {
 
 app = SessionMiddleware(bottle.app(), session_opts)
 
-def lang_from_header(accept_language, available=LANGS, default=DEFAULT_LANG):
+def lang_from_header(request, available=LANGS, default=DEFAULT_LANG):
+    accept_language = request.headers.get("Accept-Language", "")
     accept_language = accept_language.replace(" ", "")
     pairs = []
     for acc in accept_language.split(','):
@@ -65,7 +66,7 @@ def get_underline(domain, lang):
     return _
 
 def get_lang_dict(domain, request):
-    session = bottle.request.environ.get('beaker.session')
+    session = request.environ.get('beaker.session')
     lang = request.query.lang
     if lang in LANGS:
         user = logged_user(session)
@@ -75,7 +76,7 @@ def get_lang_dict(domain, request):
     else:
         lang = session.get('user_language')
         if lang not in LANGS:
-            lang = lang_from_header(request.headers.get("Accept-Language", ""))
+            lang = lang_from_header(request)
     _ = get_underline(domain, lang)
     return dict(_=_, lang=lang)
 
