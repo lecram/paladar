@@ -1,4 +1,11 @@
 Every directory in this path, should have a proper code as its name.
-The code is either ll or ll-CC, where ll is a two-letter lowercase ISO 639-1 language abbreviation and CC is a two-letter uppercase ISO 3166-1 alpha-2 country code.
-http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
-http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+The code is either ll or ll-CC, where:
+  * ll is a two-letter lowercase ISO 639-1 language abbreviation [1];
+  * CC is a two-letter uppercase ISO 3166-1 alpha-2 country code [2].
+
+The file languages.json register the languages on the system, i.e. a language is visible to the system if and only if it's listed on languages.json.
+Countries are identified on languages.json using country code top-level domains (ccTLD) [3].
+
+[1] http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+[2] http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+[3] http://en.wikipedia.org/wiki/List_of_Internet_top-level_domains#Country_code_top-level_domains

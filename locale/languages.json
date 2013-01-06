@@ -1,0 +1,26 @@
+{
+  "en": {
+    "name": "English",
+    "countries": [
+      "au",
+      "ca",
+      "ie",
+      "in",
+      "nz",
+      "uk",
+      "us"
+    ]
+  },
+  "pt-BR": {
+    "name": "Português",
+    "countries": [
+      "ao",
+      "br",
+      "cv",
+      "mz",
+      "pt",
+      "st",
+      "tl"
+    ]
+  }
+}

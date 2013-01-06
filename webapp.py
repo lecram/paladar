@@ -1,4 +1,6 @@
 import os
+import codecs
+import json
 import gettext
 
 import bottle
@@ -18,9 +20,9 @@ bcrypt = cryptacular.bcrypt.BCRYPTPasswordManager()
 delegator = cryptacular.core.DelegatingPasswordManager(preferred=pbkdf2, fallbacks=(bcrypt,))
 
 DEFAULT_LANG = 'en'
-LANGS = [DEFAULT_LANG]
-LANGS.extend(os.listdir("locale"))
-LANGS.remove("README")
+f = codecs.open("locale/languages.json", mode="r", encoding="utf8")
+LANGS = json.load(f)
+f.close()
 
 session_opts = {
     # Requires a memcached server.
