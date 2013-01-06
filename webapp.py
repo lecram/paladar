@@ -65,9 +65,17 @@ def get_underline(domain, lang):
     return _
 
 def get_lang_dict(domain, request):
+    session = bottle.request.environ.get('beaker.session')
     lang = request.query.lang
-    if lang not in LANGS:
-        lang = lang_from_header(request.headers.get("Accept-Language", ""))
+    if lang in LANGS:
+        user = logged_user(session)
+        if user is not None:
+            user.language = lang
+            user.save()
+    else:
+        lang = session.get('user_language')
+        if lang not in LANGS:
+            lang = lang_from_header(request.headers.get("Accept-Language", ""))
     _ = get_underline(domain, lang)
     return dict(_=_, lang=lang)
 
@@ -118,6 +126,7 @@ def login_submit():
         bottle.redirect('/login')
     session = bottle.request.environ.get('beaker.session')
     session['user_handle'] = username
+    session['user_language'] = user.language
     bottle.redirect('/')
 
 @bottle.route('/logout')
