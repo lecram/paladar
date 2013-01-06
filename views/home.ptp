@@ -34,13 +34,16 @@
               <li class="active"><a href="#">[[Home]]</a></li>
               <li><a href="#about">[[Feeds]]</a></li>
               <li><a href="#contact">[[About]]</a></li>
-              <li class="dropdown pull-right">
+            </ul>
+            <ul class="nav pull-right">
+              <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">[[Language]]<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="/?lang=en">English</a></li>
                   <li><a href="/?lang=pt-BR">Portugu&ecirc;s</a></li>
                 </ul>
               </li>
+              <li><a href="/logout">[[Log out]]</a></li>
             </ul>
           </div>
         </div>
@@ -49,7 +52,6 @@
 
     <div class="container">
       <h2>[[Welcome]] {{user.name}}!</h2>
-      <a href="/logout">[[Log out]]</a>
     </div> <!-- /container -->
 
     <script src="static/js/jquery.min.js"></script>
