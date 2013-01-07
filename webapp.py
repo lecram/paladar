@@ -114,7 +114,6 @@ def logged_user(session):
     username = session.get('user_handle', False)
     if not username:
         return None
-    model.paladar_db.connect()
     try:
         user = model.User.get(model.User.handle == username)
     except peewee.DoesNotExist:
@@ -129,7 +128,9 @@ def send_static(filename):
 @bottle.view('home')
 def home():
     session = bottle.request.environ.get('beaker.session')
+    model.paladar_db.connect()
     user = logged_user(session)
+    model.paladar_db.close()
     if user is None:
         bottle.redirect('/login')
     d = get_lang_dict("home", bottle.request)
@@ -140,7 +141,9 @@ def home():
 @bottle.view('feeds')
 def home():
     session = bottle.request.environ.get('beaker.session')
+    model.paladar_db.connect()
     user = logged_user(session)
+    model.paladar_db.close()
     if user is None:
         bottle.redirect('/login')
     d = get_lang_dict("feeds", bottle.request)
@@ -151,7 +154,9 @@ def home():
 @bottle.view('about')
 def home():
     session = bottle.request.environ.get('beaker.session')
+    model.paladar_db.connect()
     user = logged_user(session)
+    model.paladar_db.close()
     if user is None:
         bottle.redirect('/login')
     d = get_lang_dict("about", bottle.request)
@@ -174,6 +179,7 @@ def login_submit():
         user = model.User.get(model.User.handle == username)
     except peewee.DoesNotExist:
         user = None
+    model.paladar_db.close()
     if user is None:
         bottle.redirect('/login')
     ok = delegator.check(user.hashed_password, password)
