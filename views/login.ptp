@@ -53,7 +53,7 @@
       <div class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">[[Language]]<b class="caret"></b></a>
         <ul class="dropdown-menu">
-         %for key in langs:
+         %for key in sorted(langs.keys()):
           <li><a href="/login?lang={{key}}">{{langs[key]['name']}}</a></li>
          %end
         </ul>
