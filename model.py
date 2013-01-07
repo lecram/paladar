@@ -57,6 +57,7 @@ class Score(PaladarModel):
     denden = IntegerField()
 
 def create_tables():
+    paladar_db.connect()
     tables = [
       User, ChannelType, Channel, Entry,
       Subscription, Rating, Word, Score
