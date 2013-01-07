@@ -28,12 +28,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">Paladar</a>
+          <a href="/" class="brand">Paladar</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="#">[[Home]]</a></li>
-              <li><a href="#about">[[Feeds]]</a></li>
-              <li><a href="#contact">[[About]]</a></li>
+              <li class="active"><a href="/">[[Home]]</a></li>
+              <li><a href="/feeds">[[Feeds]]</a></li>
+              <li><a href="/about">[[About]]</a></li>
             </ul>
             <ul class="nav pull-right">
               <li class="dropdown">
