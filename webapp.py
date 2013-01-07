@@ -136,6 +136,28 @@ def home():
     d.update(user=user, langs=LANGS)
     return d
 
+@bottle.route('/feeds')
+@bottle.view('feeds')
+def home():
+    session = bottle.request.environ.get('beaker.session')
+    user = logged_user(session)
+    if user is None:
+        bottle.redirect('/login')
+    d = get_lang_dict("feeds", bottle.request)
+    d.update(user=user, langs=LANGS)
+    return d
+
+@bottle.route('/about')
+@bottle.view('about')
+def home():
+    session = bottle.request.environ.get('beaker.session')
+    user = logged_user(session)
+    if user is None:
+        bottle.redirect('/login')
+    d = get_lang_dict("about", bottle.request)
+    d.update(user=user, langs=LANGS)
+    return d
+
 @bottle.route('/login')
 @bottle.view('login')
 def login():
