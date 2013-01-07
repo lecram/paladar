@@ -84,8 +84,11 @@ def get_lang_dict(domain, request):
     if lang in LANGS:
         # If a user is logged in, supplying a language in the URL changes
         #  the user language on the database.
+        model.paladar_db.connect()
         user = logged_user(session)
+        model.paladar_db.close()
         if user is not None:
+            session['user_language'] = lang
             user.language = lang
             user.save()
     else:
