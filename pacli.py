@@ -48,6 +48,7 @@ def user_list(*args):
     print("{0} users.".format(users.count()))
     for user in users:
         print("  {0}".format(user.handle))
+    model.paladar_db.close()
 
 def user_add(*args):
     model.paladar_db.connect()
@@ -66,6 +67,7 @@ def user_add(*args):
     password = getpass.getpass("Password: ")
     user.hashed_password = delegator.encode(password)
     user.save()
+    model.paladar_db.close()
 
 def user_remove(*args):
     model.paladar_db.connect()
@@ -80,6 +82,7 @@ def user_remove(*args):
             continue            
         user.delete_instance()
         print("  Removed succesfully.")
+    model.paladar_db.close()
 
 def user_info(*args):
     model.paladar_db.connect()
@@ -98,6 +101,7 @@ def user_info(*args):
         print("  Timezone: {0}".format(user.timezone))
         print("  Hashed Password: {0}".format(user.hashed_password))
         print("  Corpus Length: {0}".format(user.corpuslen))
+    model.paladar_db.close()
 
 if __name__ == "__main__":
     import sys
