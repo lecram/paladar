@@ -52,7 +52,15 @@ def user_list(*args):
 def user_add(*args):
     model.paladar_db.connect()
     user = model.User()
-    user.handle = input("Handle: ")
+    ok = False
+    while not ok:
+        handle = input("Handle: ")
+        try:
+            model.User.get(model.User.handle == handle)
+            print("Username '{0}' is already taken.".format(handle))
+        except peewee.DoesNotExist:
+            ok = True
+    user.handle = handle
     user.name = input("Name: ")
     user.email = input("email: ")
     password = getpass.getpass("Password: ")

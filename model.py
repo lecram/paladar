@@ -9,7 +9,7 @@ class PaladarModel(Model):
         database = paladar_db
 
 class User(PaladarModel):
-    handle = CharField()
+    handle = CharField(unique=True)
     name = CharField()
     email = CharField()
     language = CharField(default="en")
@@ -46,7 +46,7 @@ class Rating(PaladarModel):
     rate = IntegerField()
 
 class Word(PaladarModel):
-    spelling = CharField()
+    spelling = CharField(unique=True)
 
 class Score(PaladarModel):
     user = ForeignKeyField(User, related_name='scores')
