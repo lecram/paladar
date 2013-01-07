@@ -25,7 +25,6 @@ def dict2po(d):
     return po
 
 def updatepo(po, keys):
-    print("    {0}% translated.".format(po.percent_translated()))
     d = po2dict(po)
     oldkeys = [k for k in d if k not in keys]
     newkeys = [k for k in keys if k not in d]
