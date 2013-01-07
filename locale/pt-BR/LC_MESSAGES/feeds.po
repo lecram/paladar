@@ -5,6 +5,12 @@ msgstr ""
 msgid "About"
 msgstr "Sobre"
 
+msgid "Add"
+msgstr "Adicionar"
+
+msgid "Description"
+msgstr "Descrição"
+
 msgid "Feeds"
 msgstr "Feeds"
 
@@ -16,3 +22,27 @@ msgstr "Idioma"
 
 msgid "Log out"
 msgstr "Sair"
+
+msgid "Subscribe to a feed."
+msgstr "Inscreva-se em um feed."
+
+msgid "The URL should point directly to a RSS/Atom feed."
+msgstr "A URL deve levar diretamente a um feed RSS/Atom."
+
+msgid "This will appear on the side bar of your home page."
+msgstr "Isto aparecerá na barra lateral da sua página inicial."
+
+msgid "This will appear on your feed list."
+msgstr "Isto aparecerá em sua lista de feeds."
+
+msgid "Title"
+msgstr "Título"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "e.g. A webcomic of romance and math humor."
+msgstr "Ex: Últimas notícias no Estadão."
+
+msgid "e.g. http://xkcd.com/rss.xml"
+msgstr "Ex: http://www.estadao.com.br/rss/ultimas.xml"

@@ -47,7 +47,37 @@
     </div> <!-- /navbar -->
 
     <div class="container">
-      <h2>The user will manage her/his feeds subscription here.</h2>
+      <form class="form-horizontal" method="POST" action="/feeds">
+        <fieldset>
+          <legend>[[Subscribe to a feed.]]</legend>
+          <div class="control-group">
+            <label class="control-label" for="urlinput">[[URL]]</label>
+            <div class="controls">
+              <input name="url" type="text" class="input-xlarge" id="urlinput"
+               placeholder="[[e.g. http://xkcd.com/rss.xml]]">
+              <p class="help-block">[[The URL should point directly to a RSS/Atom feed.]]</p>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="titleinput">[[Title]]</label>
+            <div class="controls">
+              <input name="title" type="text" class="input-xlarge" id="titleinput"
+              placeholder="[[e.g. A webcomic of romance and math humor.]]">
+              <p class="help-block">[[This will appear on the side bar of your home page.]]</p>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="descriptiontext">[[Description]]</label>
+            <div class="controls">
+              <textarea name="description" class="input-xlarge" id="descriptiontext"></textarea>
+              <p class="help-block">[[This will appear on your feed list.]]</p>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">[[Add]]</button>
+          </div>
+        </fieldset>
+      </form>
     </div> <!-- /container -->
 
     <script src="static/js/jquery.min.js"></script>
