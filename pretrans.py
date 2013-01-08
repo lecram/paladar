@@ -1,3 +1,8 @@
+#! /usr/bin/env python
+
+import os
+import codecs
+import json
 import re
 
 import polib
@@ -43,11 +48,7 @@ def updatepo(po, keys):
     po = dict2po(d)
     return po
 
-if __name__ == "__main__":
-    import os
-    import codecs
-    import json
-
+def main():
     f = codecs.open("locale/languages.json", mode="r", encoding="utf8")
     langs = json.load(f)
     f.close()
@@ -82,3 +83,6 @@ if __name__ == "__main__":
                 pof = dict2po({k: "" for k in viewkeys[view]})
             print("    {0}% translated.".format(pof.percent_translated()))
             pof.save(popath)
+
+if __name__ == "__main__":
+    main()
