@@ -110,7 +110,7 @@ def get_lang_dict(domain, request):
                     break
     # If everything above fails, the default language will be used.
     _ = get_underline(domain, lang)
-    return dict(_=_, lang=lang)
+    return dict(_=_, lang=lang, langs=LANGS)
 
 def require_login(fail):
     def decorator(f):
@@ -122,7 +122,9 @@ def require_login(fail):
             except KeyError:
                 bottle.redirect(fail)
             else:
-                return f(user=user)
+                d = f(user=user)
+                d.update(user=user)
+                return d
             finally:
                 model.paladar_db.close()
         return wrapper
@@ -137,7 +139,6 @@ def send_static(filename):
 @require_login('/login')
 def home(user):
     d = get_lang_dict("home", bottle.request)
-    d.update(user=user, langs=LANGS)
     return d
 
 @bottle.route('/feeds')
@@ -145,7 +146,6 @@ def home(user):
 @require_login('/login')
 def feeds(user):
     d = get_lang_dict("feeds", bottle.request)
-    d.update(user=user, langs=LANGS)
     return d
 
 @bottle.route('/about')
@@ -153,14 +153,12 @@ def feeds(user):
 @require_login('/login')
 def about(user):
     d = get_lang_dict("about", bottle.request)
-    d.update(user=user, langs=LANGS)
     return d
 
 @bottle.route('/login')
 @bottle.view('login')
 def login():
     d = get_lang_dict("login", bottle.request)
-    d.update(langs=LANGS)
     return d
 
 @bottle.post('/login')
