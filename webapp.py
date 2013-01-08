@@ -150,7 +150,7 @@ def home(user):
 @bottle.route('/feeds')
 @bottle.view('feeds')
 @require_login('/login')
-def home(user):
+def feeds(user):
     d = get_lang_dict("feeds", bottle.request)
     d.update(user=user, langs=LANGS)
     return d
@@ -158,7 +158,7 @@ def home(user):
 @bottle.route('/about')
 @bottle.view('about')
 @require_login('/login')
-def home(user):
+def about(user):
     d = get_lang_dict("about", bottle.request)
     d.update(user=user, langs=LANGS)
     return d
