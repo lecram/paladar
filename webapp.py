@@ -85,12 +85,17 @@ def get_lang_dict(domain, request):
         # If a user is logged in, supplying a language in the URL changes
         #  the user language on the database.
         model.paladar_db.connect()
-        user = logged_user(session)
-        model.paladar_db.close()
-        if user is not None:
+        try:
+            username = session['user_handle']
+            user = model.User.get(model.User.handle == username)
+        except (KeyError, peewee.DoesNotExist):
+            pass
+        else:
             session['user_language'] = lang
             user.language = lang
             user.save()
+        finally:
+            model.paladar_db.close()
     else:
         # If a user is logged in and [s]he doesn't include the language
         #  in the URL, (her|his) prefered language is used.
@@ -113,15 +118,22 @@ def get_lang_dict(domain, request):
     _ = get_underline(domain, lang)
     return dict(_=_, lang=lang)
 
-def logged_user(session):
-    username = session.get('user_handle', False)
-    if not username:
-        return None
-    try:
-        user = model.User.get(model.User.handle == username)
-    except peewee.DoesNotExist:
-        user = None
-    return user
+def require_login(fail):
+    def decorator(f):
+        def wrapper():
+            model.paladar_db.connect()
+            session = bottle.request.environ.get('beaker.session')
+            try:
+                username = session['user_handle']
+                user = model.User.get(model.User.handle == username)
+            except (KeyError, peewee.DoesNotExist):
+                bottle.redirect(fail)
+            else:
+                return f(user=user)
+            finally:
+                model.paladar_db.close()
+        return wrapper
+    return decorator
 
 @bottle.route('/static/<filename:path>')
 def send_static(filename):
@@ -129,39 +141,24 @@ def send_static(filename):
 
 @bottle.route('/')
 @bottle.view('home')
-def home():
-    session = bottle.request.environ.get('beaker.session')
-    model.paladar_db.connect()
-    user = logged_user(session)
-    model.paladar_db.close()
-    if user is None:
-        bottle.redirect('/login')
+@require_login('/login')
+def home(user):
     d = get_lang_dict("home", bottle.request)
     d.update(user=user, langs=LANGS)
     return d
 
 @bottle.route('/feeds')
 @bottle.view('feeds')
-def home():
-    session = bottle.request.environ.get('beaker.session')
-    model.paladar_db.connect()
-    user = logged_user(session)
-    model.paladar_db.close()
-    if user is None:
-        bottle.redirect('/login')
+@require_login('/login')
+def home(user):
     d = get_lang_dict("feeds", bottle.request)
     d.update(user=user, langs=LANGS)
     return d
 
 @bottle.route('/about')
 @bottle.view('about')
-def home():
-    session = bottle.request.environ.get('beaker.session')
-    model.paladar_db.connect()
-    user = logged_user(session)
-    model.paladar_db.close()
-    if user is None:
-        bottle.redirect('/login')
+@require_login('/login')
+def home(user):
     d = get_lang_dict("about", bottle.request)
     d.update(user=user, langs=LANGS)
     return d
