@@ -18,7 +18,7 @@ class User(PaladarModel):
     corpuslen = BigIntegerField(default=0)
 
 class ChannelType(PaladarModel):
-    handle = CharField()
+    name = CharField(unique=True)
 
 class Channel(PaladarModel):
     url = CharField()
@@ -57,7 +57,6 @@ class Score(PaladarModel):
     denden = IntegerField()
 
 def create_tables():
-    paladar_db.connect()
     tables = [
       User, ChannelType, Channel, Entry,
       Subscription, Rating, Word, Score
