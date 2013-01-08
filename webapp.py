@@ -79,41 +79,35 @@ def get_underline(domain, lang):
 
 def get_lang_dict(domain, request):
     session = request.environ.get('beaker.session')
+    user = session.get('user')
     # If a language is supplied in the URL, it's used no matter what.
     lang = request.query.lang
     if lang in LANGS:
         # If a user is logged in, supplying a language in the URL changes
         #  the user language on the database.
-        model.paladar_db.connect()
-        try:
-            username = session['user_handle']
-            user = model.User.get(model.User.handle == username)
-        except (KeyError, peewee.DoesNotExist):
-            pass
-        else:
-            session['user_language'] = lang
+        if user is not None:
+            model.paladar_db.connect()
             user.language = lang
             user.save()
-        finally:
             model.paladar_db.close()
-    else:
+    elif user is not None:
         # If a user is logged in and [s]he doesn't include the language
         #  in the URL, (her|his) prefered language is used.
-        lang = session.get('user_language')
-        if lang not in LANGS:
-            # No language in the URL and not logged in?
-            # Maybe the browser knows what's the prefered language.
-            lang = lang_from_header(request)
-        if lang not in LANGS:
-            # The last attempt at visitor language guessing is checking if
-            #  the ISP domain name has a country code and we have a language
-            #  associated with that country in languages.json.
-            country = country_from_environ(request)
-            if country is not None:
-                for key in LANGS:
-                    if country in LANGS[key]['countries']:
-                        lang = key
-                        break
+        lang = user.language
+    else:
+        # No language in the URL and not logged in?
+        # Maybe the browser knows what's the prefered language.
+        lang = lang_from_header(request)
+    if lang not in LANGS:
+        # The last attempt at visitor language guessing is checking if
+        #  the ISP domain name has a country code and we have a language
+        #  associated with that country in languages.json.
+        country = country_from_environ(request)
+        if country is not None:
+            for key in LANGS:
+                if country in LANGS[key]['countries']:
+                    lang = key
+                    break
     # If everything above fails, the default language will be used.
     _ = get_underline(domain, lang)
     return dict(_=_, lang=lang)
@@ -124,9 +118,8 @@ def require_login(fail):
             model.paladar_db.connect()
             session = bottle.request.environ.get('beaker.session')
             try:
-                username = session['user_handle']
-                user = model.User.get(model.User.handle == username)
-            except (KeyError, peewee.DoesNotExist):
+                user = session['user']
+            except KeyError:
                 bottle.redirect(fail)
             else:
                 return f(user=user)
@@ -186,8 +179,7 @@ def login_submit():
     if not ok:
         bottle.redirect('/login')
     session = bottle.request.environ.get('beaker.session')
-    session['user_handle'] = username
-    session['user_language'] = user.language
+    session['user'] = user
     bottle.redirect('/')
 
 @bottle.route('/logout')
