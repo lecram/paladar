@@ -47,7 +47,13 @@
     </div> <!-- /navbar -->
 
     <div class="container">
-      <form class="form-horizontal" method="POST" action="/feeds">
+      <div>
+       %for subscription in user.subscriptions:
+        <h3><a href="{{subscription.channel.url}}">{{subscription.channel.title}}</a></h3>
+        <p>{{subscription.channel.description}}</p>
+       %end
+      </div>
+      <form class="form-horizontal" method="POST" action="/feeds/rm">
         <fieldset>
           <legend>[[Subscribe to a feed.]]</legend>
           <div class="control-group">

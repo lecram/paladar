@@ -148,6 +148,23 @@ def feeds(user):
     d = get_lang_dict("feeds", bottle.request)
     return d
 
+@bottle.post('/feeds/rm')
+@require_login('/login')
+def feeds_submit(user):
+    url = bottle.request.forms.get('url')
+    title = bottle.request.forms.get('title')
+    description = bottle.request.forms.get('description')
+    # TODO: should check if channel already exists in database.
+    channel = model.Channel()
+    channel.url = url
+    channel.type_ = model.ChannelType.get(model.ChannelType.name == "regular")
+    channel.title = title
+    channel.description = description
+    channel.save()
+    # TODO: should check if user is already subscribed to channel.
+    model.Subscription.create(user=user, channel=channel)
+    bottle.redirect('/feeds')
+
 @bottle.route('/about')
 @bottle.view('about')
 @require_login('/login')
