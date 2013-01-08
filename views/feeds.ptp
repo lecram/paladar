@@ -53,7 +53,7 @@
         <p>{{subscription.channel.description}}</p>
        %end
       </div>
-      <form class="form-horizontal" method="POST" action="/feeds/rm">
+      <form class="form-horizontal" method="POST" action="/feeds/add">
         <fieldset>
           <legend>[[Subscribe to a feed.]]</legend>
           <div class="control-group">

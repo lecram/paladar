@@ -148,7 +148,7 @@ def feeds(user):
     d = get_lang_dict("feeds", bottle.request)
     return d
 
-@bottle.post('/feeds/rm')
+@bottle.post('/feeds/add')
 @require_login('/login')
 def feeds_submit(user):
     url = bottle.request.forms.get('url')
