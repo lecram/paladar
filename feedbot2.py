@@ -11,9 +11,12 @@ def main():
     model.paladar_db.connect()
     regular_feed = model.ChannelType.get(name="regular")
     feedzilla_feed = model.ChannelType.get(name="feedzilla")
+    model.paladar_db.close()
     try:
         while True:
+            model.paladar_db.connect()
             channels = model.Channel.select()
+            model.paladar_db.close()
             if channels.count() == 0:
                 continue
             step = INTERVAL / channels.count()
@@ -30,6 +33,7 @@ def main():
                 entries.sort(key=lambda e: e['datetime'], reverse=True)
                 for entry in entries:
                     try:
+                        model.paladar_db.connect()
                         model.Entry.create(
                           url = entry['url'],
                           channel = channel,
@@ -37,6 +41,7 @@ def main():
                           title = entry['title'],
                           summary = entry['summary']
                         )
+                        model.paladar_db.close()
                         print("Retrieved {0}.".format(entry['title']))
                     except model.IntegrityError:
                         break

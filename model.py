@@ -6,7 +6,7 @@ from peewee import *
 
 IntegrityError = sqlite3.IntegrityError
 
-paladar_db = SqliteDatabase("paladar.db")
+paladar_db = SqliteDatabase("paladar.db", threadlocals=True)
 
 class PaladarModel(Model):
     class Meta:
