@@ -21,7 +21,7 @@ class ChannelType(PaladarModel):
     name = CharField(unique=True)
 
 class Channel(PaladarModel):
-    url = CharField()
+    url = CharField(unique=True)
     type_ = ForeignKeyField(ChannelType, related_name='channels')
     title = CharField()
     description = TextField()
