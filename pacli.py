@@ -35,9 +35,9 @@ def goto(mapper, args):
 
 def user(*args):
     mapper = {
-      "ls" : user_list,
-      "add": user_add,
-      "rm" : user_remove,
+      "ls"   : user_list,
+      "add"  : user_add,
+      "rm"   : user_remove,
       "info" : user_info
     }
     goto(mapper, args)
