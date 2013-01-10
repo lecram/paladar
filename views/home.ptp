@@ -48,6 +48,11 @@
 
     <div class="container">
       <h2>[[Welcome]] {{user.name}}!</h2>
+      <br>
+     %for entry in view:
+      <h3><a href="{{entry.url}}">{{entry.title}}</a></h3>
+      <p>{{!entry.summary}}</p>
+     %end
     </div> <!-- /container -->
 
     <script src="static/js/jquery.min.js"></script>

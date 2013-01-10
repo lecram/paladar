@@ -141,6 +141,11 @@ def send_static(filename):
 @require_login('/login')
 def home(user):
     d = get_lang_dict("home", bottle.request)
+    view = []
+    for subscription in user.subscriptions:
+        for entry in subscription.channel.entries:
+            view.append(entry)
+    d.update(view=view)
     return d
 
 @bottle.route('/feeds')
