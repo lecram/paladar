@@ -31,7 +31,7 @@ class Channel(PaladarModel):
     description = TextField()
 
 class Entry(PaladarModel):
-    url = CharField()
+    url = CharField(unique=True)
     channel = ForeignKeyField(Channel, related_name='entries')
     pubtime = DateTimeField()
     title = CharField()
