@@ -4,6 +4,8 @@ import json
 import gettext
 import socket
 
+import feedparser
+
 import bottle
 
 from beaker.middleware import SessionMiddleware
@@ -152,22 +154,25 @@ def feeds(user):
 @require_login('/login')
 def feeds_submit(user):
     url = bottle.request.forms.get('url')
-    title = bottle.request.forms.get('title')
-    description = bottle.request.forms.get('description')
-    try:
-        channel = model.Channel.get(model.Channel.url == url)
-    except model.DoesNotExist:
-        channel = model.Channel()
-        channel.url = url
-        channel.type_ = model.ChannelType.get(model.ChannelType.name == "regular")
-        channel.title = title
-        channel.description = description
-        channel.save()
-    try:
-        model.Subscription.create(user=user, channel=channel)
-    except model.IntegrityError:
-        # User's already subscribed to this channel.
+    d = feedparser.parse(url)
+    if d.bozo:
+        # Invalid URL or ill-formed XML.
         pass
+    else:
+        try:
+            channel = model.Channel.get(model.Channel.url == url)
+        except model.DoesNotExist:
+            channel = model.Channel()
+            channel.url = url
+            channel.type_ = model.ChannelType.get(model.ChannelType.name == "regular")
+            channel.title = d.feed.title
+            channel.description = d.feed.description
+            channel.save()
+        try:
+            model.Subscription.create(user=user, channel=channel)
+        except model.IntegrityError:
+            # User's already subscribed to this channel.
+            pass
     bottle.redirect('/feeds')
 
 @bottle.route('/about')
