@@ -38,7 +38,8 @@ def user(*args):
       "ls"   : user_list,
       "add"  : user_add,
       "rm"   : user_remove,
-      "info" : user_info
+      "info" : user_info,
+      "subs" : user_subs
     }
     goto(mapper, args)
 
@@ -101,6 +102,24 @@ def user_info(*args):
         print("  Timezone: {0}".format(user.timezone))
         print("  Hashed Password: {0}".format(user.hashed_password))
         print("  Corpus Length: {0}".format(user.corpuslen))
+    model.paladar_db.close()
+
+def user_subs(*args):
+    model.paladar_db.connect()
+    for handle in args:
+        print(handle)
+        try:
+            user = model.User.get(model.User.handle == handle)
+        except peewee.DoesNotExist:
+            user = None
+        if user is None:
+            print("  This user does not exist.")
+            continue
+        subscriptions = user.subscriptions
+        print("  {0} subscriptions.".format(subscriptions.count()))
+        for subscription in subscriptions:
+            print("    url: {0}".format(subscription.url))
+            print("    title: {0}".format(subscription.title))
     model.paladar_db.close()
 
 if __name__ == "__main__":
