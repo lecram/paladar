@@ -8,6 +8,9 @@ msgstr "Sobre"
 msgid "Add"
 msgstr "Adicionar"
 
+msgid "Delete"
+msgstr "Remover"
+
 msgid "Feeds"
 msgstr "Feeds"
 
@@ -20,14 +23,17 @@ msgstr "Idioma"
 msgid "Log out"
 msgstr "Sair"
 
-msgid "Subscribe to a feed."
-msgstr "Inscreva-se em um feed."
+msgid "New subscription."
+msgstr "Nova assinatura."
 
 msgid "The URL should point directly to a RSS/Atom feed."
 msgstr "A URL deve levar diretamente a um feed RSS/Atom."
 
 msgid "URL"
 msgstr "URL"
+
+msgid "Your subscriptions."
+msgstr "Suas assinaturas."
 
 msgid "e.g. http://xkcd.com/rss.xml"
 msgstr "Ex: http://www.estadao.com.br/rss/ultimas.xml"

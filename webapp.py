@@ -153,7 +153,7 @@ def feeds(user):
 @bottle.post('/feeds/add')
 @require_login('/login')
 def feeds_submit(user):
-    url = bottle.request.forms.get('url')
+    url = bottle.request.forms.get('addurl')
     d = feedparser.parse(url)
     if d.bozo:
         # Invalid URL or ill-formed XML.
@@ -173,6 +173,15 @@ def feeds_submit(user):
         except model.IntegrityError:
             # User's already subscribed to this channel.
             pass
+    bottle.redirect('/feeds')
+
+@bottle.post('/feeds/del')
+@require_login('/login')
+def feeds_submit(user):
+    for url in bottle.request.forms.getall('delurl'):
+        channel = model.Channel.get(model.Channel.url == url)
+        subscription = model.Subscription.get(user=user, channel=channel)
+        subscription.delete_instance()
     bottle.redirect('/feeds')
 
 @bottle.route('/about')

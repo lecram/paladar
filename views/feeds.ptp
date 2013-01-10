@@ -11,6 +11,9 @@
       body {
         padding-top: 60px;
       }
+      .feedlink {
+        font-weight: bold;
+      }
     </style>
     <link href="static/css/bootstrap-responsive.min.css" rel="stylesheet">
 
@@ -47,19 +50,32 @@
     </div> <!-- /navbar -->
 
     <div class="container">
-      <div>
-       %for subscription in user.subscriptions:
-        <h3><a href="{{subscription.channel.url}}">{{subscription.channel.title}}</a></h3>
-        <p>{{subscription.channel.description}}</p>
-       %end
-      </div>
+      <form class="form-horizontal" method="POST" action="/feeds/del">
+        <fieldset>
+          <legend>[[Your subscriptions.]]</legend>
+          <div class="control-group">
+            <div class="controls">
+             %for subscription in user.subscriptions:
+              <label class="checkbox">
+                <input name="delurl" type="checkbox" value="{{subscription.channel.url}}">
+                <a class="feedlink" href="{{subscription.channel.url}}">{{subscription.channel.title}}</a>
+                <p>{{subscription.channel.description}}</p>
+              </label>
+             %end
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">[[Delete]]</button>
+          </div>
+        </fieldset>
+      </form>
       <form class="form-horizontal" method="POST" action="/feeds/add">
         <fieldset>
-          <legend>[[Subscribe to a feed.]]</legend>
+          <legend>[[New subscription.]]</legend>
           <div class="control-group">
             <label class="control-label" for="urlinput">[[URL]]</label>
             <div class="controls">
-              <input name="url" type="text" class="input-xlarge" id="urlinput"
+              <input name="addurl" type="text" class="input-xlarge" id="urlinput"
                placeholder="[[e.g. http://xkcd.com/rss.xml]]">
               <p class="help-block">[[The URL should point directly to a RSS/Atom feed.]]</p>
             </div>
