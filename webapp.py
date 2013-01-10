@@ -156,15 +156,18 @@ def feeds_submit(user):
     description = bottle.request.forms.get('description')
     try:
         channel = model.Channel.get(model.Channel.url == url)
-    except peewee.DoesNotExist:
+    except model.DoesNotExist:
         channel = model.Channel()
         channel.url = url
         channel.type_ = model.ChannelType.get(model.ChannelType.name == "regular")
         channel.title = title
         channel.description = description
         channel.save()
-    # TODO: should check if user is already subscribed to channel.
-    model.Subscription.create(user=user, channel=channel)
+    try:
+        model.Subscription.create(user=user, channel=channel)
+    except model.IntegrityError:
+        # User's already subscribed to this channel.
+        pass
     bottle.redirect('/feeds')
 
 @bottle.route('/about')
@@ -187,7 +190,7 @@ def login_submit():
     model.paladar_db.connect()
     try:
         user = model.User.get(model.User.handle == username)
-    except peewee.DoesNotExist:
+    except model.DoesNotExist:
         user = None
     model.paladar_db.close()
     if user is None:

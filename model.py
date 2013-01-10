@@ -1,6 +1,10 @@
 # http://peewee.readthedocs.org/en/latest/index.html
 
+import sqlite3
+
 from peewee import *
+
+IntegrityError = sqlite3.IntegrityError
 
 paladar_db = SqliteDatabase("paladar.db")
 
@@ -39,6 +43,9 @@ class Entry(PaladarModel):
 class Subscription(PaladarModel):
     user = ForeignKeyField(User, related_name='subscriptions')
     channel = ForeignKeyField(Channel, related_name='subscriptions')
+
+    class Meta:
+        indexes = ((('user', 'channel'), True),)
 
 class Rating(PaladarModel):
     user = ForeignKeyField(User, related_name='ratings')
