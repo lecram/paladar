@@ -12,7 +12,7 @@ beaker
       http://beaker.groovie.org/
     repos
       official [pypi]
-        https://github.com/bbangert/beaker
+        https://github.com/bbangert/beaker (git)
 bottle
   licence [home]
     MIT (http://bottlepy.org/docs/stable/#license)
@@ -25,7 +25,7 @@ bottle
       http://bottlepy.org/docs/stable/
     repos
       official [home]
-        https://github.com/defnull/bottle
+        https://github.com/defnull/bottle (git)
 cryptacular
   licence [pypi]
     MIT
@@ -38,7 +38,7 @@ cryptacular
       http://bitbucket.org/dholth/cryptacular/
     repos
       official [pypi]
-        https://bitbucket.org/dholth/cryptacular/src
+        https://bitbucket.org/dholth/cryptacular/src (hg)
 feedparser
   licence [home]
     MIT (http://www.opensource.org/licenses/mit-license.php)
@@ -53,7 +53,7 @@ feedparser
       http://pythonhosted.org/feedparser
     repos
       official [home]
-        http://code.google.com/p/feedparser/source/checkout
+        http://code.google.com/p/feedparser/source/checkout (git)
 pbkdf2
   licence [pypi/repo]
     MIT (https://github.com/dlitz/python-pbkdf2/blob/master/README.txt)
@@ -66,7 +66,7 @@ pbkdf2
       https://www.dlitz.net/software/python-pbkdf2/
     repos
       official [home]
-        https://github.com/dlitz/python-pbkdf2
+        https://github.com/dlitz/python-pbkdf2 (git)
 peewee
   licence [pypi/repo]
     MIT (https://github.com/coleifer/peewee/blob/master/LICENSE)
@@ -79,7 +79,7 @@ peewee
       http://peewee.readthedocs.org/en/latest/
     repos
       official [pypi]
-        https://github.com/coleifer/peewee/
+        https://github.com/coleifer/peewee/ (git)
 polib
   licence [pypi/repo]
     MIT (https://bitbucket.org/izi/polib/src/d37ff838819d1b97614462da6a75d1beeb94657b/LICENSE?at=default)
@@ -94,7 +94,7 @@ polib
       http://readthedocs.org/docs/polib/en/latest/
     repos
       official [home]
-        https://bitbucket.org/izi/polib/src
+        https://bitbucket.org/izi/polib/src (hg)
 python3-memcached
   licence [pypi/home]
     Python
@@ -109,7 +109,7 @@ python3-memcached
       ?
     repos
       official [pypi]
-        https://github.com/eguven/python3-memcached
+        https://github.com/eguven/python3-memcached (git)
 tornado
   licence [pypi/home]
     Apache Licence (http://www.apache.org/licenses/LICENSE-2.0.html)
@@ -124,4 +124,18 @@ tornado
       http://www.tornadoweb.org/documentation/index.html
     repos
       official [home]
-        https://github.com/facebook/tornado
+        https://github.com/facebook/tornado (git)
+
+summary (9 packages)
+  licence
+    6 MIT
+    1 Apache
+    1 BSD
+    1 Python
+  repo type
+    7 git
+    2 hg
+  repo host
+    6 github
+    2 bitbucket
+    1 googlecode
