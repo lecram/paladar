@@ -1,0 +1,127 @@
+beaker
+  licence [pypi/repo]
+    BSD (https://github.com/bbangert/beaker/blob/master/LICENSE)
+  python [pypi]
+    2.4-3.2
+  links
+    pypi
+      https://pypi.python.org/pypi/Beaker
+    home
+      http://beaker.rtfd.org/
+    docs
+      http://beaker.groovie.org/
+    repos
+      official [pypi]
+        https://github.com/bbangert/beaker
+bottle
+  licence [home]
+    MIT (http://bottlepy.org/docs/stable/#license)
+  python [home]
+    2.5+ & 3.x
+  links
+    pypi
+      https://pypi.python.org/pypi/bottle
+    home/docs
+      http://bottlepy.org/docs/stable/
+    repos
+      official [home]
+        https://github.com/defnull/bottle
+cryptacular
+  licence [pypi]
+    MIT
+  python [pypi]
+    2.6-3.2
+  links
+    pypi
+      https://pypi.python.org/pypi/cryptacular
+    home/docs
+      http://bitbucket.org/dholth/cryptacular/
+    repos
+      official [pypi]
+        https://bitbucket.org/dholth/cryptacular/src
+feedparser
+  licence [home]
+    MIT (http://www.opensource.org/licenses/mit-license.php)
+  python [pypi]
+    2.4-3.3
+  links
+    pypi
+      https://pypi.python.org/pypi/feedparser
+    home
+      http://code.google.com/p/feedparser/
+    docs
+      http://pythonhosted.org/feedparser
+    repos
+      official [home]
+        http://code.google.com/p/feedparser/source/checkout
+pbkdf2
+  licence [pypi/repo]
+    MIT (https://github.com/dlitz/python-pbkdf2/blob/master/README.txt)
+  python [pypi]
+    2 & 3
+  links
+    pypi
+      https://pypi.python.org/pypi/pbkdf2
+    home/docs
+      https://www.dlitz.net/software/python-pbkdf2/
+    repos
+      official [home]
+        https://github.com/dlitz/python-pbkdf2
+peewee
+  licence [pypi/repo]
+    MIT (https://github.com/coleifer/peewee/blob/master/LICENSE)
+  python
+    ?
+  links
+    pypi
+      https://pypi.python.org/pypi/peewee/0.3.0
+    home/docs
+      http://peewee.readthedocs.org/en/latest/
+    repos
+      official [pypi]
+        https://github.com/coleifer/peewee/
+polib
+  licence [pypi/repo]
+    MIT (https://bitbucket.org/izi/polib/src/d37ff838819d1b97614462da6a75d1beeb94657b/LICENSE?at=default)
+  python [pypi]
+    2.4+ & 3.x
+  links
+    pypi
+      https://pypi.python.org/pypi/polib
+    home
+      http://bitbucket.org/izi/polib/
+    docs
+      http://readthedocs.org/docs/polib/en/latest/
+    repos
+      official [home]
+        https://bitbucket.org/izi/polib/src
+python3-memcached
+  licence [pypi/home]
+    Python
+  python
+    3
+  links
+    pypi
+      https://pypi.python.org/pypi/python3-memcached
+    home (?)
+      http://www.tummy.com/software/python-memcached/
+    docs
+      ?
+    repos
+      official [pypi]
+        https://github.com/eguven/python3-memcached
+tornado
+  licence [pypi/home]
+    Apache Licence (http://www.apache.org/licenses/LICENSE-2.0.html)
+  python [home]
+    2.5-3.2
+  links
+    pypi
+      https://pypi.python.org/pypi/tornado
+    home
+      http://www.tornadoweb.org/
+    docs
+      http://www.tornadoweb.org/documentation/index.html
+    repos
+      official [home]
+        https://github.com/facebook/tornado
