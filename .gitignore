@@ -6,3 +6,4 @@ static/img/*
 i18n/*
 *.mo
 *.tpl
+dbauth.json
