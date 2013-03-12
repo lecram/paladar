@@ -44,7 +44,7 @@ def main():
                           summary = entry['summary']
                         )
                         model.paladar_db.close()
-                        print("Retrieved {0}.".format(entry['title']))
+                        print("  Retrieved {0}.".format(entry['title']))
                     except model.IntegrityError:
                         break
                 time.sleep(step.total_seconds())
