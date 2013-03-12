@@ -1,5 +1,12 @@
-mkdir paladar
-cd paladar
-virtualenv env
-source env/bin/activate
+virtualenv env/paladar
+source env/paladar/bin/activate
 pip install -r requirements.txt
+cd env/paladar/
+find lib/python3.3/site-packages/ -type f -name "*.py" | tar -cjf plain.tar.bz2 -T -
+cd ..
+mkdir plain
+cd plain
+tar -xjvf ../paladar/plain.tar.bz2
+
+To check patches:
+  diff -qr plain/ paladar/ | grep -v "^Only in"
