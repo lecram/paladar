@@ -16,10 +16,12 @@ def main():
         while True:
             model.paladar_db.connect()
             channels = model.Channel.select()
+            channels_count = channels.count()
+            channels = list(channels)
             model.paladar_db.close()
-            if channels.count() == 0:
+            if channels_count == 0:
                 continue
-            step = INTERVAL / channels.count()
+            step = INTERVAL / channels_count
             for channel in channels:
                 print("Fetching {0}.".format(channel.title))
                 if channel.type_ == regular_feed:
