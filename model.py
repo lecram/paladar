@@ -1,12 +1,18 @@
 # http://peewee.readthedocs.org/en/latest/index.html
 
-import sqlite3
+import json
+
+import pymysql
 
 from peewee import *
 
-IntegrityError = sqlite3.IntegrityError
+IntegrityError = pymysql.err.IntegrityError
 
-paladar_db = SqliteDatabase("paladar.db", threadlocals=True)
+f = open("dbauth.json", "r")
+dbauth = json.load(f)
+f.close()
+
+paladar_db = MySQLDatabase("paladar", **dbauth)
 
 class PaladarModel(Model):
     class Meta:
