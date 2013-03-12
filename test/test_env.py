@@ -1,5 +1,6 @@
 def test_beaker():
-    import beaker
+    import beaker.crypto
+    assert beaker.crypto.keyLength is not None
 
 def test_bottle():
     import bottle
