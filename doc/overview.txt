@@ -15,10 +15,11 @@ Web Server:
 
 Database Engine:
   Rules:
-    The database engine should be fast, lightweight and py3k compatible.
+    The database engine should be fast, lightweight and py3k+peewee compatible.
     The database engine should be easy to configure.
   Implementation:
-    The standard Python module sqlite3 is used.
+    MySQL is used.
+    NOTE: Python third-party library PyMySQL is required.
 
 ORM:
   Rules:
@@ -31,7 +32,8 @@ Session Management: (currently only applicable for user identification)
   Implementation:
     Python third-party library beaker is used to manage session information.
     memcached is used to store session information.
-    NOTE: Python third-party library python3-memcached is required.
+    pycrypto is used for authentication.
+    NOTE: Python third-party libraries python3-memcached and pycrypto is required.
 
 Feed Bot:
   Rules:
