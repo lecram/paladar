@@ -1,0 +1,7 @@
+git
+python
+python-virtualenv
+memcached
+mariadb
+libmariadbclient
+mariadb-clients

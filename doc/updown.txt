@@ -1,0 +1,11 @@
+# up
+sudo systemctl start mysqld # run database server
+memcached -d -m 64 -p 11211 -P $HOME/memcached.pid # run data cache server
+python feedbot.py # run feed server
+python webapp.py # run web server
+
+# down
+Ctrl-C # quit web server (alternative: use https://pypi.python.org/pypi/daemonize)
+Ctrl-C # quit feed server (alternative: use https://pypi.python.org/pypi/daemonize)
+kill $(cat $HOME/memcached.pid) # quit data cache server
+sudo systemctl stop mysqld # quit database server
