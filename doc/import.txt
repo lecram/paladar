@@ -26,7 +26,7 @@ bottle
     repos
       official [home]
         https://github.com/defnull/bottle (git)
-cryptacular
+cryptacular # needs gcc
   licence [pypi]
     MIT
   python [pypi]
@@ -54,6 +54,19 @@ feedparser
     repos
       official [home]
         http://code.google.com/p/feedparser/source/checkout (git)
+nose
+  licence
+    ?
+  python [docs]
+    2 & 3
+  links
+    pypi
+      https://pypi.python.org/pypi/nose
+    home/docs
+      https://nose.readthedocs.org/en/latest/
+    repos
+      official [home]
+        https://github.com/nose-devs/nose (git)
 pbkdf2
   licence [pypi/repo]
     MIT (https://github.com/dlitz/python-pbkdf2/blob/master/README.txt)
@@ -95,6 +108,39 @@ polib
     repos
       official [home]
         https://bitbucket.org/izi/polib/src (hg)
+pycrypto # needs gcc
+  licence [repo]
+    Public Domain (https://github.com/dlitz/pycrypto/blob/master/COPYRIGHT)
+  python [pypi]
+    2.1-3.3
+  links
+    pypi
+      https://pypi.python.org/pypi/pycrypto
+    home
+      http://www.pycrypto.org/
+      https://www.dlitz.net/software/pycrypto/
+      https://launchpad.net/pycrypto/
+    docs
+      http://pythonhosted.org/pycrypto/
+      https://www.dlitz.net/software/pycrypto/doc/
+      https://www.dlitz.net/software/pycrypto/apidoc/
+    repos
+      official [home]
+        https://github.com/dlitz/pycrypto (git)
+PyMySQL
+  licence [repo]
+    MIT (https://github.com/petehunt/PyMySQL/blob/master/LICENSE)
+  python [repo]
+    2.4+
+  links
+    pypi
+      https://pypi.python.org/pypi/PyMySQL
+    home/docs
+      http://code.google.com/p/pymysql/ (old)
+      http://www.pymysql.org/
+    repos
+      official [home]
+        https://github.com/petehunt/PyMySQL (git)
 python3-memcached
   licence [pypi/home]
     Python
@@ -126,16 +172,18 @@ tornado
       official [home]
         https://github.com/facebook/tornado (git)
 
-summary (9 packages)
+summary (12 packages)
   licence
-    6 MIT
+    7 MIT
     1 Apache
     1 BSD
     1 Python
+    1 Public Domain
+    1 ?
   repo type
-    7 git
+    10 git
     2 hg
   repo host
-    6 github
+    9 github
     2 bitbucket
     1 googlecode
