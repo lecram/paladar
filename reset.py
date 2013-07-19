@@ -1,3 +1,5 @@
+#! /usr/bin/env python
+
 import model
 
 model.paladar_db.connect()
