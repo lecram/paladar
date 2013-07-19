@@ -1,0 +1,41 @@
+pacman --needed -S base-devel
+
+useradd -m -g users paladino
+passwd paladino
+
+systemctl start mysqld
+mysql_secure_installation
+systemctl restart mysqld
+mysql -p -u root
+CREATE DATABASE paladar;
+CREATE USER 'paladino'@'localhost' IDENTIFIED BY '*****';
+GRANT ALL ON paladar.* TO 'paladino'@'localhost';
+
+git clone paladar
+virtualenv --distribute env
+source env/bin/activate
+pip install -r paladar/requirements.txt
+
+pip install -e git+https://github.com/lecram/pymysql#egg=PyMySQL
+pip install -e git+https://github.com/lecram/beaker#egg=Beaker
+pip install bottle
+pip install cryptacular
+pip install feedparser
+pip install nose
+pip install pbkdf2
+pip install peewee
+pip install polib
+pip install pycrypto
+pip install python3-memcached
+
+paladar/pretrans.py
+paladar/postrans.py
+paladar/reset.py
+
+cd /tmp
+wget http://twitter.github.io/bootstrap/assets/bootstrap.zip
+unzip bootstrap.zip
+mkdir -p paladar/static/css paladar/static/js
+cp bootstrap/css/bootstrap*.min.css paladar/static/css/
+cp bootstrap/js/bootstrap.min.js paladar/static/js/
+wget -qO paladar/static/js/jquery.min.js http://code.jquery.com/jquery-2.0.3.min.js
