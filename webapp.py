@@ -3,6 +3,7 @@ import codecs
 import json
 import gettext
 import socket
+import base64
 
 import feedparser
 
@@ -27,6 +28,9 @@ f = codecs.open("locale/languages.json", mode="r", encoding="utf8")
 LANGS = json.load(f)
 f.close()
 
+def random_str(bitlen=256):
+    return base64.b64encode(os.urandom(bitlen * 3 / 32)).decode()
+
 session_opts = {
     # Requires a memcached server.
     'session.type': 'ext:memcached',
@@ -38,8 +42,8 @@ session_opts = {
     # A lock dir is always required.
     'session.lock_dir': "lock",
     # Enable AES encryption.
-    'session.encrypt_key': '6ugGzf7bv4bb7tfv6VCeHtcGpgZjzzW5',
-    'session.validate_key': 'cJ7kQCOPeANksD5J4lFU2lHa2RZaTsBH'
+    'session.encrypt_key': random_str(),
+    'session.validate_key': random_str()
 }
 
 app = SessionMiddleware(bottle.app(), session_opts)
