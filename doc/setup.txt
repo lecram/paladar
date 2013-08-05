@@ -12,21 +12,11 @@ CREATE USER 'paladino'@'localhost' IDENTIFIED BY '*****';
 GRANT ALL ON paladar.* TO 'paladino'@'localhost';
 
 git clone paladar
-virtualenv --distribute env
+virtualenv env
 source env/bin/activate
 pip install -r paladar/requirements.txt
 
-pip install -e git+https://github.com/lecram/pymysql#egg=PyMySQL
-pip install -e git+https://github.com/lecram/beaker#egg=Beaker
-pip install bottle
-pip install cryptacular
-pip install feedparser
-pip install nose
-pip install pbkdf2
-pip install peewee
-pip install polib
-pip install pycrypto
-pip install python3-memcached
+nosetests paladar
 
 paladar/pretrans.py
 paladar/postrans.py
