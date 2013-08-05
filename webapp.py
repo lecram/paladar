@@ -29,7 +29,7 @@ LANGS = json.load(f)
 f.close()
 
 def random_str(bitlen=256):
-    return base64.b64encode(os.urandom(bitlen * 3 / 32)).decode()
+    return base64.b64encode(os.urandom(bitlen * 3 // 32)).decode()
 
 session_opts = {
     # Requires a memcached server.
