@@ -71,9 +71,9 @@
     <script src="static/js/jquery.min.js"></script>
     <script src="static/js/bootstrap.min.js"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('.dropdown-toggle').dropdown();
-        });
+      $(document).ready(function () {
+        $('.dropdown-toggle').dropdown();
+      });
    </script>
   </body>
 </html>
