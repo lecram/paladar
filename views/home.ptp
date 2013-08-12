@@ -16,8 +16,10 @@
         background-color: #eff;
         margin-top: 3px;
       }
-      .pubtime {
+      .right-aligned {
         float: right;
+      }
+      .pubtime {
         font-size: 0.7em;
         color: #888;
       }
@@ -76,7 +78,7 @@
       <br>
      %for entry in view:
       <div class="entry">
-        <h4 class="title">{{entry.title}} <a href="{{entry.url}}">&raquo;</a> <span class="pubtime">{{entry.pubtime.strftime("%m-%d %H:%M")}}</span></h4>
+        <h4 class="title">{{entry.title}}<span class="right-aligned"><a href="{{entry.url}}">&raquo;</a> <span class="pubtime">{{entry.pubtime.strftime("%m-%d %H:%M")}}</span></span></h4>
         <span class="summary"><div class="summary-text">{{!entry.summary}}</div></span><span class="stop_toggle"></span>
       </div>
      %end
