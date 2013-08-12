@@ -35,7 +35,8 @@
         margin: 10px;
         margin-top: -5px;
         padding-bottom: 5px;
-      }    </style>
+      }
+    </style>
     <link href="static/css/bootstrap-responsive.min.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
