@@ -74,6 +74,7 @@
       $(document).ready(function () {
         $('.dropdown-toggle').dropdown();
       });
+      $('input[name="username"]').focus();
    </script>
   </body>
 </html>
