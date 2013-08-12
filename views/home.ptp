@@ -11,6 +11,17 @@
       body {
         padding-top: 60px;
       }
+      .entry {
+        border-radius: 7px;
+        background-color: #eef;
+        margin-top: 3px;
+      }
+      .title, .summary {
+        padding: 5px;
+      }
+      .summary {
+        display: none;
+      }
     </style>
     <link href="static/css/bootstrap-responsive.min.css" rel="stylesheet">
 
@@ -50,8 +61,10 @@
       <h2>[[Welcome]] {{user.name}}!</h2>
       <br>
      %for entry in view:
-      <h3><a href="{{entry.url}}">{{entry.title}}</a></h3>
-      <p>{{!entry.summary}}</p>
+      <div class="entry">
+        <h4 class="title">{{entry.title}} <a href="{{entry.url}}">&raquo;</a></h4>
+        <span class="summary">{{!entry.summary}}</span><span class="stop_toggle"></span>
+      </div>
      %end
     </div> <!-- /container -->
 
@@ -61,6 +74,9 @@
         $(document).ready(function () {  
             $('.dropdown-toggle').dropdown();  
         });  
+        $('.title').click(function () {
+          $(this).nextUntil('.stop_toggle').fadeToggle();
+        });
    </script>  
   </body>
 </html>
