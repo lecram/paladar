@@ -13,7 +13,7 @@
       }
       .entry {
         border-radius: 7px;
-        background-color: #eef;
+        background-color: #eff;
         margin-top: 3px;
       }
       .pubtime {
@@ -21,13 +21,21 @@
         font-size: 0.7em;
         color: #888;
       }
-      .title, .summary {
+      .title {
+        //border-top-left-radius: 7px;
+        //border-top-right-radius: 7px;
+        border-radius: 7px;
+        background-color: #def;
         padding: 5px;
       }
       .summary {
         display: none;
       }
-    </style>
+      .summary-text {
+        margin: 10px;
+        margin-top: -5px;
+        padding-bottom: 5px;
+      }    </style>
     <link href="static/css/bootstrap-responsive.min.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -68,7 +76,7 @@
      %for entry in view:
       <div class="entry">
         <h4 class="title">{{entry.title}} <a href="{{entry.url}}">&raquo;</a> <span class="pubtime">{{entry.pubtime.strftime("%m-%d %H:%M")}}</span></h4>
-        <span class="summary">{{!entry.summary}}</span><span class="stop_toggle"></span>
+        <span class="summary"><div class="summary-text">{{!entry.summary}}</div></span><span class="stop_toggle"></span>
       </div>
      %end
     </div> <!-- /container -->
