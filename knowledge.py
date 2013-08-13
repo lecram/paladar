@@ -1,5 +1,6 @@
 import math
 import fractions
+import collections
 
 class WordStat:
     doccount = 1
@@ -15,10 +16,7 @@ class DocStat:
     rating = 0
 
     def __init__(self, wordlist):
-        count = {}
-        for word in wordlist:
-            count[word] = count.get(word, 0) + 1
-        self.hist = list(count.items()) # This is ok for both py2 and py3.
+        self.counter = collections.Counter(wordlist)
         self.length = len(wordlist)
 
     def rate(self, r):
@@ -32,7 +30,7 @@ class Knowledge:
         self.length += 1
         sdnum = fractions.Fraction(0)
         sdden = fractions.Fraction(0)
-        for word, count in docstat.hist:
+        for word, count in docstat.counter.items():
             if word not in self.vocab:
                 self.vocab[word] = WordStat()
             else:
@@ -46,7 +44,7 @@ class Knowledge:
         return float(sdnum / sdden)
 
     def death(self, docstat):
-        for word, count in docstat.hist:
+        for word, count in docstat.counter.items():
             tf = fractions.Fraction(count, docstat.length)
             self.vocab[word].stnum += docstat.rating * tf
             self.vocab[word].stden += tf
