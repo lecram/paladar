@@ -28,7 +28,7 @@ vim dbauth.json
 ./reset.py
 
 cd /tmp
-wget http://twitter.github.io/bootstrap/assets/bootstrap.zip
+wget http://getbootstrap.com/2.3.2/assets/bootstrap.zip
 unzip bootstrap.zip
 mkdir -p paladar/static/css paladar/static/js
 cp bootstrap/css/bootstrap*.min.css paladar/static/css/
