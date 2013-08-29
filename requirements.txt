@@ -1,7 +1,7 @@
 # Install with `pip install -r requirements.txt`.
 
--e git+https://github.com/lecram/beaker#egg=Beaker-origin/master
--e git+https://github.com/lecram/PyMySQL#egg=PyMySQL-master
+-e git+https://github.com/lecram/beaker#egg=Beaker
+-e git+https://github.com/lecram/PyMySQL#egg=PyMySQL
 bottle>=0.11.6
 cryptacular>=1.4.1
 feedparser>=5.1.3
