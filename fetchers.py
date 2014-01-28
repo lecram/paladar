@@ -61,7 +61,11 @@ class Regular:
         entries = []
         for item in d.entries:
             entry = {}
-            entry['datetime'] = datetime.datetime(*item.published_parsed[:6])
+            for prefix in "updated published created expired".split():
+                if prefix in item:
+                    key = prefix + "_parsed"
+                    entry['datetime'] = datetime.datetime(*item[key][:6])
+                    break
             entry['url'] = item.link
             entry['title'] = item.title
             entry['summary'] = item.summary
