@@ -38,6 +38,22 @@
         margin-top: -5px;
         padding-bottom: 5px;
       }
+      .rating {
+        unicode-bidi: bidi-override;
+        direction: rtl;
+      }
+      .rating > span {
+        display: inline-block;
+        position: relative;
+        width: 1.1em;
+      }
+      .rating > span:hover:before,
+      .rating > span:hover ~ span:before {
+         content: "\2605";
+         position: absolute;
+         cursor: pointer;
+         color: gold;
+      }
     </style>
     <link href="static/css/bootstrap-responsive.min.css" rel="stylesheet">
 
@@ -78,7 +94,12 @@
       <br>
      %for entry in view:
       <div class="entry">
-        <h4 class="title">{{entry.title}}<span class="right-aligned"><a href="{{entry.url}}">&raquo;</a> <span class="pubtime">{{entry.pubtime.strftime("%m-%d %H:%M")}}</span></span></h4>
+        <h4 class="title">{{entry.title}}
+          <span class="right-aligned">
+            <a href="{{entry.url}}">&raquo;</a> <span class="pubtime">{{entry.pubtime.strftime("%m-%d %H:%M")}}</span>
+            <span class="rating"><span>&#9734;</span><span>&#9734;</span><span>&#9734;</span><span>&#9734;</span><span>&#9734;</span></span>
+          </span>
+        </h4>
         <span class="summary"><div class="summary-text">{{!entry.summary}}</div></span><span class="stop_toggle"></span>
       </div>
      %end
