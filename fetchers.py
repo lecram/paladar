@@ -40,7 +40,6 @@ class Feedzilla:
             entry['title'] = article['title']
             entry['summary'] = article['summary']
             entries.append(entry)
-        entries.sort(key=lambda e: e['datetime'])
         return entries
 
     def fetch_info(self):
@@ -70,7 +69,6 @@ class Regular:
             entry['title'] = item.title
             entry['summary'] = item.summary
             entries.append(entry)
-        entries.sort(key=lambda e: e['datetime'])
         return entries
 
     def fetch_info(self):

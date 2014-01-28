@@ -147,6 +147,7 @@ def home(user):
     for subscription in user.subscriptions:
         for entry in subscription.channel.entries:
             view.append(entry)
+    view.sort(key=lambda e: e.pubtime, reverse=True)
     d.update(view=view)
     return d
 
